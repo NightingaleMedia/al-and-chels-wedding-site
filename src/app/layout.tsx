@@ -1,18 +1,29 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Archivo, Archivo_Black, IBM_Plex_Mono } from 'next/font/google'
 import '../styles/globals.css'
 import NavBar from '@/components/NavBar'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import { FEATURES } from '@/features'
 import ThemeRegistry from '@/styles/ThemeRegistry'
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
+import localFont from 'next/font/local'
+import { Box } from '@mui/material'
+
+const monotype = localFont({
+  src: '../fonts/Talina.otf',
+  variable: '--font-monotype',
+})
+const body1 = IBM_Plex_Mono({
+  variable: '--font-body1',
+  weight: '400',
+})
+const secondary = localFont({
+  src: '../fonts/elephant.otf',
+  variable: '--font-secondary',
 })
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+const archivoBlack = Archivo_Black({
+  variable: '--font-archivo-black',
+  weight: '400',
 })
 
 export const metadata: Metadata = {
@@ -28,13 +39,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${secondary.variable} ${archivoBlack.variable} ${monotype.variable} ${body1.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <AppRouterCacheProvider>
           <ThemeRegistry>
             {FEATURES.navbar && <NavBar />}
-            <main className="flex-1 min-h-full">{children}</main>
+            <main className=" min-h-full max-w-screen-md mx-auto mt-[64px]">
+              <Box className="pt-6">{children}</Box>
+            </main>
           </ThemeRegistry>
         </AppRouterCacheProvider>
       </body>
