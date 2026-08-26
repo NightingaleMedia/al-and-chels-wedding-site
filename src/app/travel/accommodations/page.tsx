@@ -19,18 +19,9 @@ export default function AccomodationsPage() {
       </Typography>
       <div>
         <OutlineCard
-          title={
-            <Typography
-              variant="h1"
-              style={{ color: '#4e2d11' }}
-              className="!text-[1rem] lg:!text-[2.45rem] font-monotype"
-            >
-              Rennaisance Toledo
-            </Typography>
-          }
-          imageSrc="/img/save-the-date-1.png"
+          imageSrc="https://cache.marriott.com/content/dam/marriott-renditions/TOLGP/tolgp-entrance-0055-sq.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=520px:*"
           imageAlt="Save The Date"
-          tableTitle="Al & Chels"
+          tableTitle="Rennaisance Toledo"
           tableRows={[
             <>
               <td>

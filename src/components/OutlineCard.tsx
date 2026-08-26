@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Typography } from '@mui/material'
 
 type OutlineCardProps = {
-  title: ReactNode
+  title?: ReactNode
   imageSrc: string
   imageAlt: string
   tableTitle: string
@@ -18,10 +18,12 @@ export default function OutlineCard({
   tableRows,
 }: OutlineCardProps) {
   return (
-    <div className="grid lg:grid-cols-[60px_300px] relative grid-cols-[9fr_50fr] w-[340px]">
-      <div className="relative h-full flex items-center justify-center overflow-hidden">
-        <div className="rotate-[-90deg] whitespace-nowrap">{title}</div>
-      </div>
+    <div>
+      {title && (
+        <div className="relative h-full flex items-center justify-center overflow-hidden">
+          <div className="rotate-[-90deg] whitespace-nowrap">{title}</div>
+        </div>
+      )}
       <div className="flex flex-col items-center justify-center w-full">
         <div>
           <Image
