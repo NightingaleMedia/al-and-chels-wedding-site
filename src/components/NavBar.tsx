@@ -165,33 +165,34 @@ export default function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   return (
-    <AppBar position="fixed" color="transparent" elevation={1}>
+    <AppBar position="fixed" color="secondary" elevation={1}>
       <Toolbar>
         <Typography
-          variant="h6"
+          variant="body2"
           component={Link}
           href="/"
           sx={{ flexGrow: 1, textDecoration: 'none', color: 'inherit' }}
         >
-          Our Wedding
+          Chels & Al
         </Typography>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-1">
           {navLinks.map((nl) => (
             <DesktopNavItem key={nl.href} link={nl} />
           ))}
         </nav>
 
         {/* Mobile hamburger */}
-        <IconButton
-          className="md:hidden"
-          color="inherit"
-          aria-label="open navigation menu"
-          onClick={() => setDrawerOpen(true)}
-        >
-          <MenuIcon />
-        </IconButton>
+        <div className="lg:hidden sm:flex">
+          <IconButton
+            color="inherit"
+            aria-label="open navigation menu"
+            onClick={() => setDrawerOpen(true)}
+          >
+            <MenuIcon />
+          </IconButton>
+        </div>
       </Toolbar>
 
       <Drawer

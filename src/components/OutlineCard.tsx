@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import Image from 'next/image'
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 type OutlineCardProps = {
   title?: ReactNode
@@ -8,6 +8,7 @@ type OutlineCardProps = {
   imageAlt: string
   tableTitle: string
   tableRows: ReactNode[]
+  maxWidth: number
 }
 
 export default function OutlineCard({
@@ -16,9 +17,10 @@ export default function OutlineCard({
   imageAlt,
   tableTitle,
   tableRows,
+  maxWidth,
 }: OutlineCardProps) {
   return (
-    <div>
+    <Box sx={{ maxWidth: maxWidth }}>
       {title && (
         <div className="relative h-full flex items-center justify-center overflow-hidden">
           <div className="rotate-[-90deg] whitespace-nowrap">{title}</div>
@@ -29,7 +31,7 @@ export default function OutlineCard({
           <Image
             src={imageSrc}
             alt={imageAlt}
-            width={300}
+            width={maxWidth}
             height={360}
             style={{
               opacity: '0.85',
@@ -43,7 +45,7 @@ export default function OutlineCard({
                 <tr>
                   <th colSpan={2}>
                     <Typography
-                      variant="body1"
+                      variant="h5"
                       className="text-center font-monotype"
                     >
                       {tableTitle}
@@ -60,6 +62,6 @@ export default function OutlineCard({
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   )
 }
