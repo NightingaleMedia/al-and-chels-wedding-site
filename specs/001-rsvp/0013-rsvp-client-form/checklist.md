@@ -19,8 +19,8 @@ own items; every PR body carries the full list with cumulative state.
 
 ## Phase 3 — Steps 3 & 4 (`phase-3-steps-contact-and-result`)
 
-- [ ] Step 3: email, phone number, text opt-in (opt-in recommended copy)
-- [ ] Step 4: success / error terminal step with `chelsandalsigman@gmail.com` contact
+- [x] Step 3: email, phone number, text opt-in (opt-in recommended copy)
+- [x] Step 4: success / error terminal step with `chelsandalsigman@gmail.com` contact
 
 ## Phase 4 — Orchestrator & submission (`phase-4-orchestrator`)
 
