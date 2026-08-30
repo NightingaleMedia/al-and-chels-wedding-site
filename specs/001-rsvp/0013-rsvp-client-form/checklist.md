@@ -14,8 +14,8 @@ own items; every PR body carries the full list with cumulative state.
 
 ## Phase 2 — Steps 1 & 2 (`phase-2-steps-select-and-details`)
 
-- [ ] Step 1: guest checklist rendered from `party.members`
-- [ ] Step 2: per-selected-guest dietary preference, HEX color picker, spirit animal
+- [x] Step 1: guest checklist rendered from `party.members`
+- [x] Step 2: per-selected-guest dietary preference, HEX color picker, spirit animal
 
 ## Phase 3 — Steps 3 & 4 (`phase-3-steps-contact-and-result`)
 
