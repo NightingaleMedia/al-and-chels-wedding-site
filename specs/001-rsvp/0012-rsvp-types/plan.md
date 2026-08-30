@@ -22,12 +22,12 @@ Current state in `src/serverActions/rsvp/`:
 The four curls map to these files as follows — with one mismatch and one
 gap:
 
-| Curl | Method + path | Existing file |
-|---|---|---|
-| Search Wedding Party By Guest | `POST /info/party-by-guest/search` | `searchGuestByName.ts` |
-| Get Party By UUID | `GET /info/party-by-guest/:guestId` | **none — new file** |
-| Get Party by Party ID | `GET /info/party/:partyId` | `getGuestByPartyId.ts` (misnamed — it fetches a *party* by *party id*, not a guest by party id) |
-| Submit RSVP | `POST /rsvp` | `submitRsvp.ts` |
+| Curl                          | Method + path                       | Existing file                                                                                   |
+| ----------------------------- | ----------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Search Wedding Party By Guest | `POST /info/party-by-guest/search`  | `searchGuestByName.ts`                                                                          |
+| Get Party By UUID             | `GET /info/party-by-guest/:guestId` | **none — new file**                                                                             |
+| Get Party by Party ID         | `GET /info/party/:partyId`          | `getGuestByPartyId.ts` (misnamed — it fetches a _party_ by _party id_, not a guest by party id) |
+| Submit RSVP                   | `POST /rsvp`                        | `submitRsvp.ts`                                                                                 |
 
 Per user decision: rename `getGuestByPartyId.ts` → `getPartyByPartyId.ts`
 (and its types) to match what it actually does, and add a new
@@ -136,7 +136,10 @@ seeing it take effect.
    })
    export type Party = z.infer<typeof partySchema>
 
-   const errorEnvelopeSchema = z.object({ ok: z.literal(false), error: z.string() })
+   const errorEnvelopeSchema = z.object({
+     ok: z.literal(false),
+     error: z.string(),
+   })
 
    const partyEnvelopeSchema = z.union([
      z.object({ ok: z.literal(true), data: partySchema }),
@@ -144,18 +147,28 @@ seeing it take effect.
    ])
 
    // Search Wedding Party By Guest — POST /info/party-by-guest/search
-   export const searchGuestByNameRequestSchema = z.object({ searchQuery: z.string() })
-   export type SearchGuestByNameRequest = z.infer<typeof searchGuestByNameRequestSchema>
+   export const searchGuestByNameRequestSchema = z.object({
+     searchQuery: z.string(),
+   })
+   export type SearchGuestByNameRequest = z.infer<
+     typeof searchGuestByNameRequestSchema
+   >
    export type SearchGuestByNameResponse = Party
-   export type SearchGuestByName = (request: SearchGuestByNameRequest) => Promise<SearchGuestByNameResponse>
+   export type SearchGuestByName = (
+     request: SearchGuestByNameRequest,
+   ) => Promise<SearchGuestByNameResponse>
 
    // Get Party By UUID — GET /info/party-by-guest/:guestId
    export type GetPartyByGuestIdResponse = Party
-   export type GetPartyByGuestId = (guestId: string) => Promise<GetPartyByGuestIdResponse>
+   export type GetPartyByGuestId = (
+     guestId: string,
+   ) => Promise<GetPartyByGuestIdResponse>
 
    // Get Party by Party ID — GET /info/party/:partyId
    export type GetPartyByPartyIdResponse = Party
-   export type GetPartyByPartyId = (partyId: string) => Promise<GetPartyByPartyIdResponse>
+   export type GetPartyByPartyId = (
+     partyId: string,
+   ) => Promise<GetPartyByPartyIdResponse>
 
    // Submit RSVP — POST /rsvp
    export const rsvpEntrySchema = z.object({
@@ -169,7 +182,9 @@ seeing it take effect.
    })
    export type SubmitRsvpRequest = z.infer<typeof submitRsvpRequestSchema>
    export type SubmitRsvpResponse = { success: true }
-   export type SubmitRsvp = (request: SubmitRsvpRequest) => Promise<SubmitRsvpResponse>
+   export type SubmitRsvp = (
+     request: SubmitRsvpRequest,
+   ) => Promise<SubmitRsvpResponse>
 
    export { partyEnvelopeSchema, errorEnvelopeSchema }
    ```
@@ -184,7 +199,7 @@ seeing it take effect.
 
 4. **`submitRsvp.ts`** — import from `./weddingBackend.schemas`; parse
    the raw response with a `z.union([z.object({ok: z.literal(true)}),
-   errorEnvelopeSchema])`, throw `new Error(parsed.error)` if
+errorEnvelopeSchema])`, throw `new Error(parsed.error)` if
    `ok: false`, else return `{ success: true }`.
 
 5. **`searchGuestByName.ts`** — set
