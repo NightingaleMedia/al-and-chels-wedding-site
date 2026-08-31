@@ -38,10 +38,14 @@ own items; every PR body carries the full list with cumulative state.
 
 ## Known blockers
 
-- **B1 — Backend contract gap.** `SubmitRsvpRequest` (`weddingBackend.schemas.ts`)
-  accepts only `partyId` + `rsvps[{ guestId, isAttending, mealChoice }]`. Dietary
-  preference, favorite color, spirit animal, email, phone and text opt-in have
-  nowhere to go. Collected and validated client-side, held out of the request
-  payload until the backend exposes fields for them.
-- **B2 — Meal choice.** The backend supports `mealChoice`, but spec 0013 does not
-  ask for a meal step, so none is rendered and the field is omitted.
+- **B1 — RESOLVED.** The backend accepts `guestName`, `dietaryPreference` and
+  `spiritAnimal` per RSVP entry plus `email` / `phoneNumber` / `textOptIn` at the
+  top level, so the collected answers are now submitted rather than dropped.
+  `rsvpEntrySchema` was missing the **required** `guestName`, which made every
+  submit fail backend validation.
+- **B2 — Meal choice.** Backend supports `mealChoice`; spec 0013 defines no meal
+  step, so it is not sent.
+- **B4 — Favorite color removed.** The HEX picker called for in the spec was
+  taken out of the form; re-add if it is still wanted.
+- **B5 — `/rsvp` has no party.** Without guest search the bare route can only
+  point guests at their invitation link; `/rsvp/<partyId>` is the working entry.

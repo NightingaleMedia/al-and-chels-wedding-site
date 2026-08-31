@@ -46,12 +46,18 @@ export type GetPartyByPartyId = (partyId: string) => Promise<GetPartyByPartyIdRe
 // Submit RSVP — POST /rsvp
 export const rsvpEntrySchema = z.object({
   guestId: z.string(),
+  guestName: z.string(),
   isAttending: z.boolean(),
   mealChoice: z.string().optional(),
+  dietaryPreference: z.string().optional(),
+  spiritAnimal: z.string().optional(),
 })
 export const submitRsvpRequestSchema = z.object({
   partyId: z.string(),
   rsvps: z.array(rsvpEntrySchema),
+  email: z.string().optional(),
+  phoneNumber: z.string().optional(),
+  textOptIn: z.boolean().optional(),
 })
 export type SubmitRsvpRequest = z.infer<typeof submitRsvpRequestSchema>
 export type SubmitRsvpResponse = { success: true }
