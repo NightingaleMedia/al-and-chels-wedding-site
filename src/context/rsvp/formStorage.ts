@@ -1,4 +1,7 @@
-import type { RSVPFormValues } from '@/components/forms/RSVPForm/types'
+import {
+  draftSchema,
+  type RSVPFormValues,
+} from '@/components/forms/RSVPForm/types'
 
 const key = (partyId: string) => `rsvp-form-${partyId}`
 
@@ -7,7 +10,11 @@ export const draftStorage = {
   load: (partyId: string): RSVPFormValues | null => {
     try {
       const raw = localStorage.getItem(key(partyId))
-      return raw ? (JSON.parse(raw) as RSVPFormValues) : null
+      if (!raw) return null
+      // Parse against the schema: a draft written by an older version of the
+      // form is discarded rather than handed to Formik half-shaped.
+      const parsed = draftSchema.safeParse(JSON.parse(raw))
+      return parsed.success ? parsed.data : null
     } catch {
       return null
     }

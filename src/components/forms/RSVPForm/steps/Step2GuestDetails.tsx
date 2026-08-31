@@ -29,7 +29,9 @@ export default function Step2GuestDetails() {
 
         return (
           <div key={member.uuid} className="flex flex-col gap-3">
-            <Typography variant="subtitle1">{member.Name}</Typography>
+            <Typography variant="subtitle1" className="font-medium">
+              {member.Name}
+            </Typography>
 
             <FormControl>
               <FormLabel>Dietary preference</FormLabel>
@@ -50,7 +52,11 @@ export default function Step2GuestDetails() {
                     label={preset}
                   />
                 ))}
-                <FormControlLabel value={CUSTOM} control={<Radio />} label="Something else" />
+                <FormControlLabel
+                  value={CUSTOM}
+                  control={<Radio />}
+                  label="Something else"
+                />
               </RadioGroup>
             </FormControl>
 
@@ -70,6 +76,7 @@ export default function Step2GuestDetails() {
               value={formik.values.guestDetails[member.uuid].spiritAnimal}
               onChange={formik.handleChange}
               fullWidth
+              variant="standard"
             />
           </div>
         )

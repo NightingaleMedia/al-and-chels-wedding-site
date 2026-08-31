@@ -11,14 +11,22 @@ export const guestDetailsSchema = z.object({
 })
 export type GuestDetails = z.infer<typeof guestDetailsSchema>
 
-export const rsvpFormSchema = z.object({
-  attendingGuestIds: z.array(z.string()).min(1, 'Select at least one guest'),
+/** The shape of the form — used to validate drafts read back from storage. */
+export const draftSchema = z.object({
+  attendingGuestIds: z.array(z.string()),
   guestDetails: z.record(guestDetailsSchema),
-  email: z.string().email('Enter a valid email'),
-  phoneNumber: z.string().regex(/^\+?[0-9\s\-()]{10,}$/, 'Enter a valid phone number'),
+  email: z.string(),
+  phoneNumber: z.string(),
   textOptIn: z.boolean(),
 })
-export type RSVPFormValues = z.infer<typeof rsvpFormSchema>
+export type RSVPFormValues = z.infer<typeof draftSchema>
+
+/** The same shape plus the rules a guest must satisfy to submit. */
+export const rsvpFormSchema = draftSchema.extend({
+  attendingGuestIds: z.array(z.string()).min(1, 'Select at least one guest'),
+  email: z.string().email('Enter a valid email'),
+  phoneNumber: z.string().regex(/^\+?[0-9\s\-()]{10,}$/, 'Enter a valid phone number'),
+})
 
 export type RSVPStep = 1 | 2 | 3 | 4
 

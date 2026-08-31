@@ -84,7 +84,14 @@ export function RSVPFormProvider({
     if (restored.current) return
     restored.current = true
     const saved = draftStorage.load(partyId)
-    if (saved) formik.setValues(saved)
+    if (!saved) return
+    // Guest ids come from the party, not the draft, so a draft saved before the
+    // party changed cannot leave a member without a details entry.
+    const initial = getInitialValues(party)
+    formik.setValues({
+      ...saved,
+      guestDetails: { ...initial.guestDetails, ...saved.guestDetails },
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
