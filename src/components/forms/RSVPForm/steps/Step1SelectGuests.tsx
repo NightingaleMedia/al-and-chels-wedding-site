@@ -20,13 +20,11 @@ function GuestResponse({
   value,
   disabled,
   onChange,
-  caption,
 }: {
   member: Member
   value: string
   disabled?: boolean
   onChange?: (isAttending: boolean) => void
-  caption?: string
 }) {
   return (
     <FormControl
@@ -80,7 +78,6 @@ export default function Step1SelectGuests() {
           member={member}
           value={member.rsvp === 'Attending' ? YES : NO}
           disabled
-          caption="Already responded"
         />
       ))}
 

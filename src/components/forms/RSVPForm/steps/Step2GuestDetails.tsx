@@ -11,7 +11,8 @@ import {
   Typography,
 } from '@mui/material'
 import { useRSVPForm } from '@/context/rsvp/RSVPFormContext'
-import { DIETARY_PRESETS } from '../types'
+import { isDietaryPreset } from '@/context/rsvp/helpers'
+import { DIETARY_PRESETS } from '@/context/rsvp/types'
 
 const CUSTOM = 'custom'
 
@@ -25,7 +26,7 @@ export default function Step2GuestDetails() {
       {attendingMembers.map((member) => {
         const field = `guestDetails.${member.uuid}.dietaryPreference`
         const value = formik.values.guestDetails[member.uuid].dietaryPreference
-        const isPreset = DIETARY_PRESETS.some((preset) => preset === value)
+        const isPreset = isDietaryPreset(value)
 
         return (
           <div key={member.uuid} className="flex flex-col gap-3">

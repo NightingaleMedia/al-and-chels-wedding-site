@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import type { ReactNode } from 'react'
 import { useFormik } from 'formik'
 import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
@@ -8,27 +8,16 @@ import { submitRsvp } from '@/serverActions/rsvp/submitRsvp'
 import {
   getInitialValues,
   getStepSchemas,
-  type RSVPFormValues,
-  type RSVPStep,
-} from '@/components/forms/RSVPForm/types'
-import { draftStorage } from './formStorage'
-
-type Status = 'editing' | 'success' | 'error'
-
-interface RSVPFormContextValue {
-  party: Party
-  formik: ReturnType<typeof useFormik<RSVPFormValues>>
-  step: RSVPStep
-  status: Status
-  errorMessage?: string
-  attendingMembers: Party['members']
-  editableMembers: Party['members']
-  lockedMembers: Party['members']
-  setResponse: (guestId: string, isAttending: boolean) => void
-  next: () => void
-  back: () => void
-  retry: () => void
-}
+  splitMembers,
+  toFormikErrors,
+  toSubmitRequest,
+} from './helpers'
+import type {
+  RSVPFormContextValue,
+  RSVPFormValues,
+  RSVPStatus,
+  RSVPStep,
+} from './types'
 
 const RSVPFormContext = createContext<RSVPFormContextValue | null>(null)
 
@@ -49,35 +38,16 @@ export function RSVPFormProvider({
 }) {
   const partyId = party.partyId ?? party.partyName
   const [step, setStep] = useState<RSVPStep>(1)
-  const [status, setStatus] = useState<Status>('editing')
+  const [status, setStatus] = useState<RSVPStatus>('editing')
   const [errorMessage, setErrorMessage] = useState<string>()
-  const restored = useRef(false)
 
-  // A guest who already responded is read-only: we show what they said and
-  // leave their answer — and their existing food/spirit answers — untouched.
-  const editableMembers = party.members.filter(
-    (m) => m.rsvp === 'Not Responded',
-  )
-  const lockedMembers = party.members.filter((m) => m.rsvp !== 'Not Responded')
+  const { editableMembers, lockedMembers } = splitMembers(party)
 
   const formik = useFormik<RSVPFormValues>({
     initialValues: getInitialValues(party),
     onSubmit: async (values) => {
       try {
-        await submitRsvp({
-          partyId,
-          email: values.email,
-          phone: values.phone,
-          textOptIn: values.textOptIn,
-          rsvps: editableMembers.map((member) => ({
-            guestId: member.uuid,
-            guestName: member.Name,
-            isAttending: values.responses[member.uuid] ?? false,
-
-            ...values.guestDetails[member.uuid],
-          })),
-        })
-        draftStorage.clear(partyId)
+        await submitRsvp(toSubmitRequest(partyId, editableMembers, values))
         setStatus('success')
       } catch (error) {
         setErrorMessage(
@@ -91,41 +61,11 @@ export function RSVPFormProvider({
     validateOnBlur: false,
   })
 
-  // Restore saved answers once, on mount — localStorage is client-only, so this
-  // cannot happen during render without breaking hydration.
-  useEffect(() => {
-    if (restored.current) return
-    restored.current = true
-    const saved = draftStorage.load(partyId)
-    if (!saved) return
-    // Guest ids come from the party, not the draft, so a draft saved before the
-    // party changed cannot leave a member without a details entry.
-    const initial = getInitialValues(party)
-    formik.setValues({
-      ...saved,
-      guestDetails: { ...initial.guestDetails, ...saved.guestDetails },
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  // Persist answers until the RSVP is safely stored server-side.
-  useEffect(() => {
-    if (!restored.current || status === 'success') return
-    draftStorage.save(partyId, formik.values)
-  }, [partyId, status, formik.values])
-
   const next = () => {
     const schemas = getStepSchemas(editableMembers.map((m) => m.uuid))
     const result = schemas[step].safeParse(formik.values)
     if (!result.success) {
-      formik.setErrors(
-        Object.fromEntries(
-          result.error.issues.map((issue) => [
-            issue.path.join('.'),
-            issue.message,
-          ]),
-        ),
-      )
+      formik.setErrors(toFormikErrors(result.error))
       return
     }
     formik.setErrors({})

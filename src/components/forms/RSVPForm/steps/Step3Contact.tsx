@@ -1,6 +1,11 @@
 'use client'
 
-import { Checkbox, FormControlLabel, TextField, Typography } from '@mui/material'
+import {
+  Checkbox,
+  FormControlLabel,
+  TextField,
+  Typography,
+} from '@mui/material'
 import { useRSVPForm } from '@/context/rsvp/RSVPFormContext'
 
 /** Step 3 — how we reach you. */
@@ -22,13 +27,13 @@ export default function Step3Contact() {
         fullWidth
       />
       <TextField
-        name="phoneNumber"
+        name="phone"
         type="tel"
         label="Phone number"
-        value={formik.values.phoneNumber}
+        value={formik.values.phone}
         onChange={formik.handleChange}
-        error={Boolean(formik.errors.phoneNumber)}
-        helperText={formik.errors.phoneNumber}
+        error={Boolean(formik.errors.phone)}
+        helperText={formik.errors.phone}
         fullWidth
       />
       <FormControlLabel
