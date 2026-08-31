@@ -1,19 +1,24 @@
 'use server'
 
 import { z } from 'zod'
+import { backendRequest } from './backendRequest'
 import { errorEnvelopeSchema, type SubmitRsvp } from './weddingBackend.schemas'
 
+const submitEnvelopeSchema = z.union([z.object({ ok: z.literal(true) }), errorEnvelopeSchema])
+
 export const submitRsvp = (async (request) => {
-  const res = await fetch(`${process.env.WEDDING_BACKEND}/rsvp`, {
+  await backendRequest({
+    action: 'submitRsvp',
+    path: '/rsvp',
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(request),
-    cache: 'no-store',
+    envelope: submitEnvelopeSchema,
+    body: request,
+    // Guest answers stay out of the logs; these are enough to trace a submission.
+    details: {
+      partyId: request.partyId,
+      guestCount: request.rsvps.length,
+      attendingCount: request.rsvps.filter((rsvp) => rsvp.isAttending).length,
+    },
   })
-  const parsed = z.union([
-    z.object({ ok: z.literal(true) }),
-    errorEnvelopeSchema,
-  ]).parse(await res.json())
-  if (!parsed.ok) throw new Error(parsed.error)
   return { success: true }
 }) satisfies SubmitRsvp

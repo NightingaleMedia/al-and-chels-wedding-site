@@ -6,7 +6,7 @@ export const DIETARY_PRESETS = ['love it all', 'vegetarian'] as const
 export const DEFAULT_DIETARY_PREFERENCE = DIETARY_PRESETS[0]
 
 export const guestDetailsSchema = z.object({
-  dietaryPreference: z.string(),
+  foodPref: z.string(),
   spiritAnimal: z.string(),
 })
 export type GuestDetails = z.infer<typeof guestDetailsSchema>
@@ -45,7 +45,7 @@ export const getInitialValues = (party: Party): RSVPFormValues => ({
   guestDetails: Object.fromEntries(
     party.members.map((m) => [
       m.uuid,
-      { dietaryPreference: DEFAULT_DIETARY_PREFERENCE, spiritAnimal: '' },
+      { foodPref: DEFAULT_DIETARY_PREFERENCE, spiritAnimal: '' },
     ]),
   ),
   email: '',

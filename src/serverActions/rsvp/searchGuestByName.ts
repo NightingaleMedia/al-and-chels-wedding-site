@@ -1,17 +1,16 @@
 'use server'
 
+import { backendRequest } from './backendRequest'
 import { partyEnvelopeSchema, type SearchGuestByName } from './weddingBackend.schemas'
 
-const SEARCH_GUEST_BY_NAME_ENDPOINT = '/info/party-by-guest/search'
-
 export const searchGuestByName = (async (request) => {
-  const res = await fetch(`${process.env.WEDDING_BACKEND}${SEARCH_GUEST_BY_NAME_ENDPOINT}`, {
+  const { data } = await backendRequest({
+    action: 'searchGuestByName',
+    path: '/info/party-by-guest/search',
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(request),
-    cache: 'no-store',
+    envelope: partyEnvelopeSchema,
+    body: request,
+    details: { searchQuery: request.searchQuery },
   })
-  const parsed = partyEnvelopeSchema.parse(await res.json())
-  if (!parsed.ok) throw new Error(parsed.error)
-  return parsed.data
+  return data
 }) satisfies SearchGuestByName

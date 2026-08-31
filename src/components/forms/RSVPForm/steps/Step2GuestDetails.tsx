@@ -23,8 +23,8 @@ export default function Step2GuestDetails() {
     <section className="flex flex-col gap-6">
       <Divider />
       {attendingMembers.map((member) => {
-        const field = `guestDetails.${member.uuid}.dietaryPreference`
-        const value = formik.values.guestDetails[member.uuid].dietaryPreference
+        const field = `guestDetails.${member.uuid}.foodPref`
+        const value = formik.values.guestDetails[member.uuid].foodPref
         const isPreset = DIETARY_PRESETS.some((preset) => preset === value)
 
         return (
