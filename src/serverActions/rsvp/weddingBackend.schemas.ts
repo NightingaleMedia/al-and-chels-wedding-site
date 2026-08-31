@@ -11,6 +11,8 @@ export const memberSchema = z.object({
   group_name: z.string(),
   group_id: z.string().optional(),
   rsvp: z.enum(['Not Responded', 'Attending', 'Not Attending']),
+  spiritAnimal: z.string().optional(),
+  foodPref: z.string().optional(),
 })
 export type Member = z.infer<typeof memberSchema>
 
@@ -22,7 +24,10 @@ export const partySchema = z.object({
 })
 export type Party = z.infer<typeof partySchema>
 
-const errorEnvelopeSchema = z.object({ ok: z.literal(false), error: z.string() })
+const errorEnvelopeSchema = z.object({
+  ok: z.literal(false),
+  error: z.string(),
+})
 
 const partyEnvelopeSchema = z.union([
   z.object({ ok: z.literal(true), data: partySchema }),
@@ -30,26 +35,35 @@ const partyEnvelopeSchema = z.union([
 ])
 
 // Search Wedding Party By Guest — POST /info/party-by-guest/search
-export const searchGuestByNameRequestSchema = z.object({ searchQuery: z.string() })
-export type SearchGuestByNameRequest = z.infer<typeof searchGuestByNameRequestSchema>
+export const searchGuestByNameRequestSchema = z.object({
+  searchQuery: z.string(),
+})
+export type SearchGuestByNameRequest = z.infer<
+  typeof searchGuestByNameRequestSchema
+>
 export type SearchGuestByNameResponse = Party
-export type SearchGuestByName = (request: SearchGuestByNameRequest) => Promise<SearchGuestByNameResponse>
+export type SearchGuestByName = (
+  request: SearchGuestByNameRequest,
+) => Promise<SearchGuestByNameResponse>
 
 // Get Party By UUID — GET /info/party-by-guest/:guestId
 export type GetPartyByGuestIdResponse = Party
-export type GetPartyByGuestId = (guestId: string) => Promise<GetPartyByGuestIdResponse>
+export type GetPartyByGuestId = (
+  guestId: string,
+) => Promise<GetPartyByGuestIdResponse>
 
 // Get Party by Party ID — GET /info/party/:partyId
 export type GetPartyByPartyIdResponse = Party
-export type GetPartyByPartyId = (partyId: string) => Promise<GetPartyByPartyIdResponse>
+export type GetPartyByPartyId = (
+  partyId: string,
+) => Promise<GetPartyByPartyIdResponse>
 
 // Submit RSVP — POST /rsvp
 export const rsvpEntrySchema = z.object({
   guestId: z.string(),
   guestName: z.string(),
   isAttending: z.boolean(),
-  mealChoice: z.string().optional(),
-  dietaryPreference: z.string().optional(),
+  foodPref: z.string().optional(),
   spiritAnimal: z.string().optional(),
 })
 export const submitRsvpRequestSchema = z.object({
@@ -61,6 +75,8 @@ export const submitRsvpRequestSchema = z.object({
 })
 export type SubmitRsvpRequest = z.infer<typeof submitRsvpRequestSchema>
 export type SubmitRsvpResponse = { success: true }
-export type SubmitRsvp = (request: SubmitRsvpRequest) => Promise<SubmitRsvpResponse>
+export type SubmitRsvp = (
+  request: SubmitRsvpRequest,
+) => Promise<SubmitRsvpResponse>
 
 export { partyEnvelopeSchema, errorEnvelopeSchema }

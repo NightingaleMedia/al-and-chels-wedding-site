@@ -1,6 +1,7 @@
 'use client'
 
 import {
+  Divider,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -20,8 +21,7 @@ export default function Step2GuestDetails() {
 
   return (
     <section className="flex flex-col gap-6">
-      <Typography variant="h6">Tell us about everyone</Typography>
-
+      <Divider />
       {attendingMembers.map((member) => {
         const field = `guestDetails.${member.uuid}.dietaryPreference`
         const value = formik.values.guestDetails[member.uuid].dietaryPreference
@@ -29,55 +29,73 @@ export default function Step2GuestDetails() {
 
         return (
           <div key={member.uuid} className="flex flex-col gap-3">
-            <Typography variant="subtitle1" className="font-medium">
+            <Typography variant="body1" sx={{ fontWeight: 800 }}>
               {member.Name}
             </Typography>
 
             <FormControl>
-              <FormLabel>Dietary preference</FormLabel>
-              <RadioGroup
-                value={isPreset ? value : CUSTOM}
-                onChange={(event) =>
-                  formik.setFieldValue(
-                    field,
-                    event.target.value === CUSTOM ? '' : event.target.value,
-                  )
-                }
-              >
-                {DIETARY_PRESETS.map((preset) => (
+              <div className="flex flex-col gap-2">
+                <div>
+                  <FormLabel className="font-bold text-bold">
+                    dietary preference
+                  </FormLabel>{' '}
+                </div>
+
+                <RadioGroup
+                  className="my-0 py-0"
+                  value={isPreset ? value : CUSTOM}
+                  onChange={(event) =>
+                    formik.setFieldValue(
+                      field,
+                      event.target.value === CUSTOM ? '' : event.target.value,
+                    )
+                  }
+                >
+                  {DIETARY_PRESETS.map((preset) => (
+                    <FormControlLabel
+                      key={preset}
+                      value={preset}
+                      control={<Radio />}
+                      label={preset}
+                      slotProps={{
+                        typography: {
+                          sx: {
+                            fontSize: '14px',
+                          },
+                        },
+                      }}
+                    />
+                  ))}
                   <FormControlLabel
-                    key={preset}
-                    value={preset}
+                    value={CUSTOM}
                     control={<Radio />}
-                    label={preset}
+                    label="something else"
                   />
-                ))}
-                <FormControlLabel
-                  value={CUSTOM}
-                  control={<Radio />}
-                  label="Something else"
-                />
-              </RadioGroup>
+                </RadioGroup>
+              </div>
             </FormControl>
 
             {!isPreset && (
               <TextField
                 name={field}
-                label="Tell us more"
+                label="Your preference..."
                 value={value}
                 onChange={formik.handleChange}
                 fullWidth
               />
             )}
-
-            <TextField
-              name={`guestDetails.${member.uuid}.spiritAnimal`}
-              label="Spirit animal"
-              value={formik.values.guestDetails[member.uuid].spiritAnimal}
-              onChange={formik.handleChange}
-              fullWidth
-              variant="standard"
-            />
+            <div className="flex flex-col gap-2">
+              <TextField
+                name={`guestDetails.${member.uuid}.spiritAnimal`}
+                value={formik.values.guestDetails[member.uuid].spiritAnimal}
+                onChange={formik.handleChange}
+                fullWidth
+                label="spirit animal 🦉"
+                variant="filled"
+                helperText="optional"
+              />
+            </div>
+            <Divider />
           </div>
         )
       })}

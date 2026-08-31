@@ -4,7 +4,9 @@ import RSVPForm from '@/components/forms/RSVPForm/RSVPForm'
 import { getPartyByPartyId } from '@/serverActions/rsvp/getPartyByPartyId'
 import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
 
-export default async function PartyRSVPPage(props: PageProps<'/rsvp/[partyId]'>) {
+export default async function PartyRSVPPage(
+  props: PageProps<'/rsvp/[partyId]'>,
+) {
   const { partyId } = await props.params
 
   let party: Party
@@ -15,9 +17,8 @@ export default async function PartyRSVPPage(props: PageProps<'/rsvp/[partyId]'>)
   }
 
   return (
-    <main className="mx-auto flex w-full max-w-xl flex-col gap-4 px-4 py-8">
-      <Typography variant="h1">RSVP</Typography>
-      <Typography variant="body2">{party.partyName}</Typography>
+    <main className="mx-auto flex w-full max-w-xl flex-col px-4 pb-8">
+      <Typography variant="h1">{party.partyName}</Typography>
       <RSVPForm party={party} />
     </main>
   )

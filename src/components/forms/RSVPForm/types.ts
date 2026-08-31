@@ -2,7 +2,7 @@ import { z } from 'zod'
 import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
 
 /** Presets for the dietary radio; anything else is treated as a custom answer. */
-export const DIETARY_PRESETS = ['Love it all', 'Vegetarian'] as const
+export const DIETARY_PRESETS = ['love it all', 'vegetarian'] as const
 export const DEFAULT_DIETARY_PREFERENCE = DIETARY_PRESETS[0]
 
 export const guestDetailsSchema = z.object({
@@ -25,7 +25,9 @@ export type RSVPFormValues = z.infer<typeof draftSchema>
 export const rsvpFormSchema = draftSchema.extend({
   attendingGuestIds: z.array(z.string()).min(1, 'Select at least one guest'),
   email: z.string().email('Enter a valid email'),
-  phoneNumber: z.string().regex(/^\+?[0-9\s\-()]{10,}$/, 'Enter a valid phone number'),
+  phoneNumber: z
+    .string()
+    .regex(/^\+?[0-9\s\-()]{10,}$/, 'Enter a valid phone number'),
 })
 
 export type RSVPStep = 1 | 2 | 3 | 4
