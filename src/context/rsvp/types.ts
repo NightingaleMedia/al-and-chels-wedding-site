@@ -34,7 +34,9 @@ export const rsvpFormSchema = formValuesSchema.extend({
 
 export type RSVPStep = 1 | 2 | 3 | 4
 
-export type RSVPStatus = 'editing' | 'success' | 'error'
+export type RSVPStatus =
+  /** Nothing left to answer — the whole party responded before this visit. */
+  'already-complete' | 'editing' | 'success' | 'error'
 
 /** Everything the step components may read. They hold no state of their own. */
 export interface RSVPFormContextValue {
@@ -49,6 +51,10 @@ export interface RSVPFormContextValue {
   editableMembers: Party['members']
   /** Members who responded before this visit; read-only. */
   lockedMembers: Party['members']
+  /** Every editable member answered no — steps 2 and 3 have nothing to ask. */
+  isDeclineAll: boolean
+  /** Whether `next()` will submit rather than advance. */
+  isFinalStep: boolean
   setResponse: (guestId: string, isAttending: boolean) => void
   next: () => void
   back: () => void

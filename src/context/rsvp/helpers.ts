@@ -34,6 +34,22 @@ export const getInitialValues = (party: Party): RSVPFormValues => ({
   textOptIn: false,
 })
 
+/** The whole party responded before this visit, so there is nothing to submit. */
+export const isAlreadyComplete = (editableMembers: Party['members']) =>
+  editableMembers.length === 0
+
+/**
+ * Everyone who still had to answer declined. Nothing is left to collect: no
+ * dietary details, and no contact info needed for logistics — so the form ends
+ * at step 1.
+ */
+export const isDeclineAll = (
+  editableMembers: Party['members'],
+  values: RSVPFormValues,
+) =>
+  editableMembers.length > 0 &&
+  editableMembers.every((m) => values.responses[m.uuid] === false)
+
 /** Whether a dietary answer is one of the presets rather than a custom one. */
 export const isDietaryPreset = (value: string | undefined) =>
   DIETARY_PRESETS.some((preset) => preset === value)
@@ -78,8 +94,8 @@ export const toSubmitRequest = (
   values: RSVPFormValues,
 ): SubmitRsvpRequest => ({
   partyId,
-  email: values.email,
-  phone: values.phone,
+  email: values.email || undefined,
+  phone: values.phone || undefined,
   textOptIn: values.textOptIn,
   rsvps: editableMembers.map((member) => ({
     guestId: member.uuid,

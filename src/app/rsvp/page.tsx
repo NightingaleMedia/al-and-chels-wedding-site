@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { Divider, Typography } from '@mui/material'
 
 /** Guest search lands here in a later spec; for now the form needs a party id. */
 export default function RSVPPage() {
@@ -8,6 +8,12 @@ export default function RSVPPage() {
       <Typography variant="body1">
         Open the RSVP link from your invitation to find your party.
       </Typography>
+      <Divider />
+      <Typography variant="h1">OR</Typography>
+      <Typography variant="body1">
+        Search below by your first and last name for your party.
+      </Typography>
+      <div></div>
     </main>
   )
 }

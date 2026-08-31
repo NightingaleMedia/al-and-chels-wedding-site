@@ -8,6 +8,8 @@ import { submitRsvp } from '@/serverActions/rsvp/submitRsvp'
 import {
   getInitialValues,
   getStepSchemas,
+  isAlreadyComplete,
+  isDeclineAll as getIsDeclineAll,
   splitMembers,
   toFormikErrors,
   toSubmitRequest,
@@ -37,11 +39,14 @@ export function RSVPFormProvider({
   children: ReactNode
 }) {
   const partyId = party.partyId ?? party.partyName
-  const [step, setStep] = useState<RSVPStep>(1)
-  const [status, setStatus] = useState<RSVPStatus>('editing')
-  const [errorMessage, setErrorMessage] = useState<string>()
-
   const { editableMembers, lockedMembers } = splitMembers(party)
+  const alreadyComplete = isAlreadyComplete(editableMembers)
+
+  const [step, setStep] = useState<RSVPStep>(1)
+  const [status, setStatus] = useState<RSVPStatus>(
+    alreadyComplete ? 'already-complete' : 'editing',
+  )
+  const [errorMessage, setErrorMessage] = useState<string>()
 
   const formik = useFormik<RSVPFormValues>({
     initialValues: getInitialValues(party),
@@ -61,7 +66,11 @@ export function RSVPFormProvider({
     validateOnBlur: false,
   })
 
+  const declineAll = getIsDeclineAll(editableMembers, formik.values)
+  const isFinalStep = step === 3 || (step === 1 && declineAll)
+
   const next = () => {
+    if (alreadyComplete) return
     const schemas = getStepSchemas(editableMembers.map((m) => m.uuid))
     const result = schemas[step].safeParse(formik.values)
     if (!result.success) {
@@ -69,7 +78,7 @@ export function RSVPFormProvider({
       return
     }
     formik.setErrors({})
-    if (step === 3) formik.handleSubmit()
+    if (isFinalStep) formik.handleSubmit()
     else setStep((current) => (current + 1) as RSVPStep)
   }
 
@@ -79,7 +88,7 @@ export function RSVPFormProvider({
   const retry = () => {
     setStatus('editing')
     setErrorMessage(undefined)
-    setStep(3)
+    setStep(declineAll ? 1 : 3)
   }
 
   const setResponse = (guestId: string, isAttending: boolean) =>
@@ -103,6 +112,8 @@ export function RSVPFormProvider({
         attendingMembers,
         editableMembers,
         lockedMembers,
+        isDeclineAll: declineAll,
+        isFinalStep,
         setResponse,
         next,
         back,
