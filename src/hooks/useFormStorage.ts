@@ -1,7 +1,10 @@
 'use client'
 
+import {
+  formStorage,
+  FormStorageValue,
+} from '@/components/forms/RSVPForm/utils/formStorage'
 import { useEffect, useState } from 'react'
-import { formStorage, FormStorageValue } from '../utils/formStorage'
 
 export interface UseFormStorageReturn {
   savedData: FormStorageValue | null
@@ -19,12 +22,15 @@ export interface UseFormStorageReturn {
  * @param storageKey - Optional key for storing data (default: 'default')
  * @returns Object containing savedData, save, load, and clear methods
  */
-export const useFormStorage = (storageKey: string = 'default'): UseFormStorageReturn => {
-  const [isMounted, setIsMounted] = useState(false)
+export const useFormStorage = (
+  storageKey: string = 'default',
+): UseFormStorageReturn => {
+  const [isMounted, setIsMounted] = useState<boolean>(false)
   const [savedData, setSavedData] = useState<FormStorageValue | null>(null)
 
   // Hydration safety: only access localStorage after component mounts on client
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsMounted(true)
 
     // Load data from storage on mount

@@ -3,8 +3,11 @@
 import { useFormik } from 'formik'
 import { ZodError } from 'zod'
 import { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
-import { getInitialFormValues, RSVPFormSchema, RSVPFormValues } from '../types'
-
+import {
+  getInitialFormValues,
+  RSVPFormSchema,
+  RSVPFormValues,
+} from '@/components/forms/RSVPForm/types'
 export interface UseFormikRSVPOptions {
   party: Party
   initialValues?: Partial<RSVPFormValues>
