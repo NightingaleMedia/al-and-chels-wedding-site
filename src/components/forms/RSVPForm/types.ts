@@ -1,6 +1,10 @@
 import { z } from 'zod'
 import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
 
+/** Presets for the dietary radio; anything else is treated as a custom answer. */
+export const DIETARY_PRESETS = ['Love it all', 'Vegetarian'] as const
+export const DEFAULT_DIETARY_PREFERENCE = DIETARY_PRESETS[0]
+
 export const guestDetailsSchema = z.object({
   dietaryPreference: z.string(),
   spiritAnimal: z.string(),
@@ -29,7 +33,10 @@ export const stepSchemas: Record<RSVPStep, z.ZodTypeAny> = {
 export const getInitialValues = (party: Party): RSVPFormValues => ({
   attendingGuestIds: [],
   guestDetails: Object.fromEntries(
-    party.members.map((m) => [m.uuid, { dietaryPreference: '', spiritAnimal: '' }]),
+    party.members.map((m) => [
+      m.uuid,
+      { dietaryPreference: DEFAULT_DIETARY_PREFERENCE, spiritAnimal: '' },
+    ]),
   ),
   email: '',
   phoneNumber: '',
