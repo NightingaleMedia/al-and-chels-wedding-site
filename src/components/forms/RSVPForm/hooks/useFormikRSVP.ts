@@ -58,3 +58,6 @@ export const useFormikRSVP = ({
     validateOnChange: false,
     validateOnBlur: true,
   })
+
+/** Shared prop type for the step components. */
+export type RSVPFormik = ReturnType<typeof useFormikRSVP>
