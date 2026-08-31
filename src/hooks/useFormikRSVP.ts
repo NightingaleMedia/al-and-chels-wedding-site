@@ -1,74 +1,63 @@
 'use client'
 
-import { useFormik } from 'formik'
+import { setIn, useFormik, type FormikHelpers } from 'formik'
 import { ZodError } from 'zod'
-import { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
+import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
 import {
   getInitialFormValues,
-  RSVPFormSchema,
-  RSVPFormValues,
+  stepSchemas,
+  type RSVPFormValues,
+  type RSVPStep,
 } from '@/components/forms/RSVPForm/types'
+
 export interface UseFormikRSVPOptions {
   party: Party
+  /** The step currently on screen — only its fields are validated. */
+  step: RSVPStep
   initialValues?: Partial<RSVPFormValues>
-  onSuccess?: (result: { success: true }) => void
-  onError?: (error: Error) => void
+  onSubmit: (
+    values: RSVPFormValues,
+    helpers: FormikHelpers<RSVPFormValues>,
+  ) => void | Promise<void>
 }
 
 /**
- * Converts a Zod schema to a Formik validation function.
- * Maps Zod validation errors to Formik's error format.
+ * Runs the schema for the active step and reshapes Zod issues into Formik's
+ * nested error object. `setIn` is used so `guestDetails.<id>.spiritAnimal`
+ * resolves through `getFieldMeta`, which a flat dotted key would not.
  */
-function createFormikValidationSchema(schema: typeof RSVPFormSchema) {
-  return async (values: RSVPFormValues) => {
-    try {
-      await schema.parseAsync(values)
-      return {}
-    } catch (error) {
-      if (error instanceof ZodError) {
-        const formikErrors: Record<string, string> = {}
-        error.errors.forEach((err) => {
-          const path = err.path.join('.')
-          formikErrors[path] = err.message
-        })
-        return formikErrors
-      }
-      throw error
-    }
+const validateStep = (step: RSVPStep) => async (values: RSVPFormValues) => {
+  try {
+    await stepSchemas[step].parseAsync(values)
+    return {}
+  } catch (error) {
+    if (!(error instanceof ZodError)) throw error
+    return error.issues.reduce(
+      (errors, issue) => setIn(errors, issue.path.join('.'), issue.message),
+      {},
+    )
   }
 }
 
 /**
- * Formik hook for RSVP form with Zod validation.
- *
- * Initializes Formik with:
- * - Zod schema validation
- * - Hydration-safe initial values
- * - Validation on blur only (not on change)
- * - Optional success and error callbacks
- *
- * @param options - Configuration options including party data and callbacks
- * @returns Formik instance (FormikHelpers & FormikState)
+ * Formik instance for the RSVP form, validated against the current step's
+ * schema. Validation runs on blur and on submit only, so a guest is not shouted
+ * at mid-keystroke.
  */
-export const useFormikRSVP = (options: UseFormikRSVPOptions) => {
-  const { party, initialValues, onSuccess, onError } = options
-
-  return useFormik({
-    initialValues: {
-      ...getInitialFormValues(),
-      ...initialValues,
-    },
-    validate: createFormikValidationSchema(RSVPFormSchema),
-    onSubmit: async (values) => {
-      // Stub: will be filled in by RSVPForm.tsx
-      console.log('Form submitted with values:', values)
-      console.log('Party:', party)
-
-      if (onSuccess) {
-        onSuccess({ success: true })
-      }
-    },
+export const useFormikRSVP = ({
+  party,
+  step,
+  initialValues,
+  onSubmit,
+}: UseFormikRSVPOptions) =>
+  useFormik<RSVPFormValues>({
+    initialValues: { ...getInitialFormValues(party), ...initialValues },
+    enableReinitialize: false,
+    validate: validateStep(step),
+    onSubmit,
     validateOnChange: false,
     validateOnBlur: true,
   })
-}
+
+/** Shared prop type for the step components. */
+export type RSVPFormik = ReturnType<typeof useFormikRSVP>
