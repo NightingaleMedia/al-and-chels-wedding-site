@@ -54,7 +54,7 @@ const navLinks: NavLink[] = [
     children: [
       { label: 'Schedule', href: '/the-wedding#schedule' },
       { label: 'Location', href: '/the-wedding#location' },
-      { label: 'RSVP', href: '/the-wedding#location' },
+      { label: 'RSVP', href: '/rsvp' },
     ],
   },
   { label: 'FAQs', href: '/faqs' },
