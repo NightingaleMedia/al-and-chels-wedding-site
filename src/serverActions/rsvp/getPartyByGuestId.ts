@@ -1,15 +1,16 @@
 'use server'
 
-import { backendRequest } from './backendRequest'
 import { partyEnvelopeSchema, type GetPartyByGuestId } from './weddingBackend.schemas'
 
+const GET_PARTY_BY_GUEST_ID_ENDPOINT = '/info/party-by-guest'
+
 export const getPartyByGuestId = (async (guestId) => {
-  const { data } = await backendRequest({
-    action: 'getPartyByGuestId',
-    path: `/info/party-by-guest/${guestId}`,
+  const res = await fetch(`${process.env.WEDDING_BACKEND}${GET_PARTY_BY_GUEST_ID_ENDPOINT}/${guestId}`, {
     method: 'GET',
-    envelope: partyEnvelopeSchema,
-    details: { guestId },
+    headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store',
   })
-  return data
+  const parsed = partyEnvelopeSchema.parse(await res.json())
+  if (!parsed.ok) throw new Error(parsed.error)
+  return parsed.data
 }) satisfies GetPartyByGuestId
