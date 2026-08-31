@@ -24,11 +24,11 @@ own items; every PR body carries the full list with cumulative state.
 
 ## Phase 4 — Orchestrator & submission (`phase-4-orchestrator`)
 
-- [ ] `RSVPForm.tsx` client component wiring Formik + the four steps
-- [ ] localStorage persistence via `useFormStorage` (restore on mount, save on change, clear on success)
-- [ ] Submit through the `submitRsvp` server action, errors routed to step 4
-- [ ] Barrel `index.ts` export
-- [ ] `tsc --noEmit` and `next lint` clean
+- [x] `RSVPForm.tsx` client component wiring Formik + the four steps
+- [x] localStorage persistence via `useFormStorage` (restore on mount, save on change, clear on success)
+- [x] Submit through the `submitRsvp` server action, errors routed to step 4
+- [x] Barrel `index.ts` export
+- [x] `tsc --noEmit` and `next lint` clean
 
 ## Out of scope (per spec)
 

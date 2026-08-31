@@ -1,30 +1,28 @@
-export type FormStorageValue = {
+export type FormStorageValue<T> = {
   step: number
-  formData: any
+  formData: T
   timestamp: number
 }
 
 const STORAGE_PREFIX = 'rsvp-form-'
 
 export const formStorage = {
-  save: (key: string, data: FormStorageValue): void => {
+  save: <T,>(key: string, data: FormStorageValue<T>): void => {
     if (!formStorage.isAvailable()) return
 
     try {
-      const fullKey = `${STORAGE_PREFIX}${key}`
-      localStorage.setItem(fullKey, JSON.stringify(data))
+      localStorage.setItem(`${STORAGE_PREFIX}${key}`, JSON.stringify(data))
     } catch (error) {
       console.error('Failed to save form data to localStorage:', error)
     }
   },
 
-  load: (key: string): FormStorageValue | null => {
+  load: <T,>(key: string): FormStorageValue<T> | null => {
     if (!formStorage.isAvailable()) return null
 
     try {
-      const fullKey = `${STORAGE_PREFIX}${key}`
-      const item = localStorage.getItem(fullKey)
-      return item ? JSON.parse(item) : null
+      const item = localStorage.getItem(`${STORAGE_PREFIX}${key}`)
+      return item ? (JSON.parse(item) as FormStorageValue<T>) : null
     } catch (error) {
       console.error('Failed to load form data from localStorage:', error)
       return null
@@ -35,8 +33,7 @@ export const formStorage = {
     if (!formStorage.isAvailable()) return
 
     try {
-      const fullKey = `${STORAGE_PREFIX}${key}`
-      localStorage.removeItem(fullKey)
+      localStorage.removeItem(`${STORAGE_PREFIX}${key}`)
     } catch (error) {
       console.error('Failed to clear form data from localStorage:', error)
     }
