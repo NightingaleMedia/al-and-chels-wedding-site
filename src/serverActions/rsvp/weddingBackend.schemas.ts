@@ -70,8 +70,8 @@ export const submitRsvpRequestSchema = z.object({
   partyId: z.string(),
   rsvps: z.array(rsvpEntrySchema),
   email: z.string().optional(),
-  phoneNumber: z.string().optional(),
-  textOptIn: z.boolean().optional(),
+  phone: z.string().optional(),
+  textOptIn: z.boolean().optional().default(false),
 })
 export type SubmitRsvpRequest = z.infer<typeof submitRsvpRequestSchema>
 export type SubmitRsvpResponse = { success: true }

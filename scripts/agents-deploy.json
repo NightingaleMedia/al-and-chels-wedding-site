@@ -1,5 +1,5 @@
 {
-  "project_name": "wedding-invite-sheet-sync",
+  "project_name": "wedding-site-dev",
   "engine": "bash",
   "command": "sh scripts/deploy.sh dev"
 }

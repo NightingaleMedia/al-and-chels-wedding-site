@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation'
-import { Typography } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 import RSVPForm from '@/components/forms/RSVPForm/RSVPForm'
 import { getPartyByPartyId } from '@/serverActions/rsvp/getPartyByPartyId'
 import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
+import { ErrorPanel } from '@/components/forms/RSVPForm/errorPanel'
 
 export default async function PartyRSVPPage(
   props: PageProps<'/rsvp/[partyId]'>,
@@ -13,7 +14,15 @@ export default async function PartyRSVPPage(
   try {
     party = await getPartyByPartyId(partyId)
   } catch {
-    notFound()
+    return (
+      <main>
+        <ErrorPanel>
+          <Button variant="contained" href="/rsvp">
+            Search for your RSVP
+          </Button>
+        </ErrorPanel>
+      </main>
+    )
   }
 
   return (

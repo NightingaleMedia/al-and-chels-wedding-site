@@ -7,7 +7,7 @@ import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
 import { submitRsvp } from '@/serverActions/rsvp/submitRsvp'
 import {
   getInitialValues,
-  stepSchemas,
+  getStepSchemas,
   type RSVPFormValues,
   type RSVPStep,
 } from '@/components/forms/RSVPForm/types'
@@ -22,7 +22,9 @@ interface RSVPFormContextValue {
   status: Status
   errorMessage?: string
   attendingMembers: Party['members']
-  toggleGuest: (guestId: string) => void
+  editableMembers: Party['members']
+  lockedMembers: Party['members']
+  setResponse: (guestId: string, isAttending: boolean) => void
   next: () => void
   back: () => void
   retry: () => void
@@ -33,7 +35,8 @@ const RSVPFormContext = createContext<RSVPFormContextValue | null>(null)
 /** All RSVP form state and behaviour. Step components only read from this. */
 export function useRSVPForm(): RSVPFormContextValue {
   const context = useContext(RSVPFormContext)
-  if (!context) throw new Error('useRSVPForm must be used inside <RSVPFormProvider>')
+  if (!context)
+    throw new Error('useRSVPForm must be used inside <RSVPFormProvider>')
   return context
 }
 
@@ -50,6 +53,13 @@ export function RSVPFormProvider({
   const [errorMessage, setErrorMessage] = useState<string>()
   const restored = useRef(false)
 
+  // A guest who already responded is read-only: we show what they said and
+  // leave their answer — and their existing food/spirit answers — untouched.
+  const editableMembers = party.members.filter(
+    (m) => m.rsvp === 'Not Responded',
+  )
+  const lockedMembers = party.members.filter((m) => m.rsvp !== 'Not Responded')
+
   const formik = useFormik<RSVPFormValues>({
     initialValues: getInitialValues(party),
     onSubmit: async (values) => {
@@ -57,19 +67,22 @@ export function RSVPFormProvider({
         await submitRsvp({
           partyId,
           email: values.email,
-          phoneNumber: values.phoneNumber,
+          phone: values.phone,
           textOptIn: values.textOptIn,
-          rsvps: party.members.map((member) => ({
+          rsvps: editableMembers.map((member) => ({
             guestId: member.uuid,
             guestName: member.Name,
-            isAttending: values.attendingGuestIds.includes(member.uuid),
+            isAttending: values.responses[member.uuid] ?? false,
+
             ...values.guestDetails[member.uuid],
           })),
         })
         draftStorage.clear(partyId)
         setStatus('success')
       } catch (error) {
-        setErrorMessage(error instanceof Error ? error.message : 'Something went wrong')
+        setErrorMessage(
+          error instanceof Error ? error.message : 'Something went wrong',
+        )
         setStatus('error')
       }
       setStep(4)
@@ -102,11 +115,15 @@ export function RSVPFormProvider({
   }, [partyId, status, formik.values])
 
   const next = () => {
-    const result = stepSchemas[step].safeParse(formik.values)
+    const schemas = getStepSchemas(editableMembers.map((m) => m.uuid))
+    const result = schemas[step].safeParse(formik.values)
     if (!result.success) {
       formik.setErrors(
         Object.fromEntries(
-          result.error.issues.map((issue) => [issue.path.join('.'), issue.message]),
+          result.error.issues.map((issue) => [
+            issue.path.join('.'),
+            issue.message,
+          ]),
         ),
       )
       return
@@ -116,7 +133,8 @@ export function RSVPFormProvider({
     else setStep((current) => (current + 1) as RSVPStep)
   }
 
-  const back = () => setStep((current) => (current > 1 ? ((current - 1) as RSVPStep) : current))
+  const back = () =>
+    setStep((current) => (current > 1 ? ((current - 1) as RSVPStep) : current))
 
   const retry = () => {
     setStatus('editing')
@@ -124,16 +142,14 @@ export function RSVPFormProvider({
     setStep(3)
   }
 
-  const toggleGuest = (guestId: string) =>
-    formik.setFieldValue(
-      'attendingGuestIds',
-      formik.values.attendingGuestIds.includes(guestId)
-        ? formik.values.attendingGuestIds.filter((id) => id !== guestId)
-        : [...formik.values.attendingGuestIds, guestId],
-    )
+  const setResponse = (guestId: string, isAttending: boolean) =>
+    formik.setFieldValue('responses', {
+      ...formik.values.responses,
+      [guestId]: isAttending,
+    })
 
-  const attendingMembers = party.members.filter((member) =>
-    formik.values.attendingGuestIds.includes(member.uuid),
+  const attendingMembers = editableMembers.filter(
+    (member) => formik.values.responses[member.uuid] === true,
   )
 
   return (
@@ -145,7 +161,9 @@ export function RSVPFormProvider({
         status,
         errorMessage,
         attendingMembers,
-        toggleGuest,
+        editableMembers,
+        lockedMembers,
+        setResponse,
         next,
         back,
         retry,

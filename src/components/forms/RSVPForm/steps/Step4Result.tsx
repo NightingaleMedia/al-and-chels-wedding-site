@@ -1,9 +1,9 @@
 'use client'
 
 import { Button, Link, Typography } from '@mui/material'
+import { SUPPORT_EMAIL } from '@/constants'
 import { useRSVPForm } from '@/context/rsvp/RSVPFormContext'
-
-const SUPPORT_EMAIL = 'chelsandalsigman@gmail.com'
+import { ErrorPanel } from '../errorPanel'
 
 /** Step 4 — the result of the submission. */
 export default function Step4Result() {
@@ -22,16 +22,10 @@ export default function Step4Result() {
   }
 
   return (
-    <section className="flex flex-col items-start gap-3">
-      <Typography variant="h6">Something went wrong</Typography>
-      <Typography variant="body1">
-        We couldn&apos;t save your RSVP{errorMessage ? `: ${errorMessage}` : ''}. Your
-        answers are still here. Still stuck? Email{' '}
-        <Link href={`mailto:${SUPPORT_EMAIL}`}>{SUPPORT_EMAIL}</Link>.
-      </Typography>
+    <ErrorPanel errorMessage={errorMessage}>
       <Button variant="contained" onClick={retry}>
         Try again
       </Button>
-    </section>
+    </ErrorPanel>
   )
 }

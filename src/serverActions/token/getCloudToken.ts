@@ -1,13 +1,28 @@
 import { GoogleAuth } from 'google-auth-library'
 
-// Not a server action: this mints a credential, so keep it out of the browser.
 const auth = new GoogleAuth()
 
-/** Google-signed ID token for calling the wedding backend on Cloud Run. */
+/**
+ * Mints a Google OIDC identity token for the notion-sync backend.
+ *
+ * The audience must be the bare Cloud Run service URL with no path — it has to
+ * match what the backend derives from the request host in `requireAdminToken`,
+ * and what Cloud Scheduler is configured with (`--oidc-token-audience`).
+ *
+ * Server-side only. On GCP the token comes from the metadata server using the
+ * runtime service account; locally it falls back to ADC
+ * (`gcloud auth application-default login`).
+ */
 export async function getCloudToken(): Promise<string> {
-  // The audience is the service URL without a path — WEDDING_BACKEND has one.
-  const audience = new URL(process.env.WEDDING_BACKEND!).origin
+  const audience = process.env.WEDDING_BACKEND
+  if (!audience) {
+    throw new Error('WEDDING_BACKEND is not set; cannot mint an identity token')
+  }
+
   const client = await auth.getIdTokenClient(audience)
-  const headers = await client.getRequestHeaders()
-  return headers.get('authorization')!.replace('Bearer ', '')
+  const token = await client.idTokenProvider.fetchIdToken(audience)
+  console.log(`[getCloudToken] minted ID token for audience ${audience}`)
+  return token
 }
+
+export const runtime = 'nodejs'
