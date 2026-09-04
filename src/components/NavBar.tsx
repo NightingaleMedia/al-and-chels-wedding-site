@@ -16,6 +16,8 @@ const navLinks = [
   { label: 'Add Your Story', href: '/add-your-story' },
 ]
 
+// HELLO WORLD!
+
 export default function NavBar() {
   return (
     <AppBar position="static" color="transparent" elevation={1}>

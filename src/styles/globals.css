@@ -11,6 +11,16 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Two breakpoints only: default = small (<768px), lg: = large (≥768px) */
+  --breakpoint-sm: initial;
+  --breakpoint-md: initial;
+  --breakpoint-lg: 768px;
+  --breakpoint-xl: initial;
+  --breakpoint-2xl: initial;
+}
+@layer base {
+  /* Typography styles are now managed by MUI theme.ts */
 }
 
 @media (prefers-color-scheme: light) {
