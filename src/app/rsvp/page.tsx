@@ -1,6 +1,6 @@
 import { Divider, Typography } from '@mui/material'
+import GuestSearch from '@/components/forms/GuestSearch/GuestSearch'
 
-/** Guest search lands here in a later spec; for now the form needs a party id. */
 export default function RSVPPage() {
   return (
     <main className="mx-auto flex w-full max-w-xl flex-col gap-4 px-4 py-8">
@@ -13,7 +13,7 @@ export default function RSVPPage() {
       <Typography variant="body1">
         Search below by your first and last name for your party.
       </Typography>
-      <div></div>
+      <GuestSearch />
     </main>
   )
 }

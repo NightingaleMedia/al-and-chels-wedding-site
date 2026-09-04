@@ -9,7 +9,7 @@ import {
   RadioGroup,
   Typography,
 } from '@mui/material'
-import type { Member } from '@/serverActions/rsvp/weddingBackend.schemas'
+import type { Guest } from '@/serverActions/rsvp/weddingBackend.schemas'
 import { useRSVPForm } from '@/context/rsvp/RSVPFormContext'
 
 const YES = 'yes'
@@ -21,7 +21,7 @@ function GuestResponse({
   disabled,
   onChange,
 }: {
-  member: Member
+  member: Guest
   value: string
   disabled?: boolean
   onChange?: (isAttending: boolean) => void

@@ -9,8 +9,7 @@ export async function backendClient(
   init: RequestInit = {},
 ): Promise<Response> {
   const method = init.method ?? 'GET'
-  const local = process.env.NEXT_PUBLIC_APP_ENV === 'local'
-  const token = local ? undefined : await getCloudToken()
+  const token = await getCloudToken()
 
   const url = new URL(`/api/v1${path}`, process.env.WEDDING_BACKEND)
   console.log(`[backend] → ${method} ${url}${token ? ' (auth)' : ''}`)

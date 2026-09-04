@@ -24,9 +24,10 @@ function Steps() {
       {step === 2 && <Step2GuestDetails />}
       {step === 3 && <Step3Contact />}
 
-      <div className="flex gap-2 border-t pt-3">
+      <div className="flex flex-1 gap-2 border-t pt-3">
         <Button
           variant="outlined"
+          fullWidth
           onClick={back}
           disabled={step === 1 || formik.isSubmitting}
         >
@@ -34,6 +35,7 @@ function Steps() {
         </Button>
         <Button
           variant="contained"
+          fullWidth
           onClick={next}
           disabled={formik.isSubmitting || status === 'already-complete'}
         >

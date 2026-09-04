@@ -1,82 +1,84 @@
 import { z } from 'zod'
 
-export const memberSchema = z.object({
+// Shapes for the notion-sync API (see its OpenAPI doc). Every endpoint either
+// answers with `{ ok: true, data }` or fails with a 404 — there is no richer
+// error body worth modelling.
+
+/* -------------------------------- schemas -------------------------------- */
+
+export const guestSchema = z.object({
   Name: z.string(),
   'First Name': z.string(),
   'Last Name': z.string(),
-  brideGroom: z.enum(['bride', 'groom']),
-  'Family / Friends': z.enum(['family', 'friends']),
-  age: z.enum(['adult', 'child']),
-  uuid: z.string(),
   group_name: z.string(),
-  group_id: z.string().optional(),
-  rsvp: z.enum(['Not Responded', 'Attending', 'Not Attending']),
+  group_id: z.string(),
+  brideGroom: z.enum(['bride', 'groom']),
+  'Family / Friends': z.enum(['friends', 'family']),
+  age: z.enum(['adult', 'child', 'infant']),
+  uuid: z.string(),
+  rsvp: z
+    .enum(['Attending', 'Not Attending', 'Not Responded'])
+    .default('Not Responded'),
   spiritAnimal: z.string().optional(),
   foodPref: z.string().optional(),
 })
-export type Member = z.infer<typeof memberSchema>
 
 export const partySchema = z.object({
   partyName: z.string(),
-  partyId: z.string().optional(),
+  partyId: z.string(),
   guestCount: z.number(),
-  members: z.array(memberSchema),
+  members: z.array(guestSchema),
 })
+
+/** All three party lookups answer with this. */
+export const partyResponseSchema = z.object({
+  ok: z.literal(true),
+  data: partySchema,
+})
+
+export const searchGuestByNameRequestSchema = z.object({
+  searchQuery: z.string().min(1),
+})
+
+export const submitRsvpRequestSchema = z.object({
+  partyId: z.string().min(1),
+  email: z.string().max(64).optional(),
+  phone: z.string().max(64).optional(),
+  textOptIn: z.boolean().optional(),
+  rsvps: z
+    .array(
+      z.object({
+        guestId: z.string().min(1),
+        isAttending: z.boolean(),
+        foodPref: z.string().max(64).optional(),
+        spiritAnimal: z.string().max(64).optional(),
+      }),
+    )
+    .min(1),
+})
+
+/* --------------------------------- types --------------------------------- */
+
+export type Guest = z.infer<typeof guestSchema>
 export type Party = z.infer<typeof partySchema>
 
-const errorEnvelopeSchema = z.object({
-  ok: z.literal(false),
-  error: z.string(),
-})
-
-const partyEnvelopeSchema = z.union([
-  z.object({ ok: z.literal(true), data: partySchema }),
-  errorEnvelopeSchema,
-])
-
-// Search Wedding Party By Guest — POST /info/party-by-guest/search
-export const searchGuestByNameRequestSchema = z.object({
-  searchQuery: z.string(),
-})
 export type SearchGuestByNameRequest = z.infer<
   typeof searchGuestByNameRequestSchema
 >
-export type SearchGuestByNameResponse = Party
+export type SubmitRsvpRequest = z.infer<typeof submitRsvpRequestSchema>
+
+// GET /info/party/:partyId
+export type GetPartyByPartyId = (partyId: string) => Promise<Party>
+
+// GET /info/party-by-guest/:guestId
+export type GetPartyByGuestId = (guestId: string) => Promise<Party>
+
+// POST /info/party-by-guest/search
 export type SearchGuestByName = (
   request: SearchGuestByNameRequest,
-) => Promise<SearchGuestByNameResponse>
+) => Promise<Party>
 
-// Get Party By UUID — GET /info/party-by-guest/:guestId
-export type GetPartyByGuestIdResponse = Party
-export type GetPartyByGuestId = (
-  guestId: string,
-) => Promise<GetPartyByGuestIdResponse>
-
-// Get Party by Party ID — GET /info/party/:partyId
-export type GetPartyByPartyIdResponse = Party
-export type GetPartyByPartyId = (
-  partyId: string,
-) => Promise<GetPartyByPartyIdResponse>
-
-// Submit RSVP — POST /rsvp
-export const rsvpEntrySchema = z.object({
-  guestId: z.string(),
-  guestName: z.string(),
-  isAttending: z.boolean(),
-  foodPref: z.string().optional(),
-  spiritAnimal: z.string().optional(),
-})
-export const submitRsvpRequestSchema = z.object({
-  partyId: z.string(),
-  rsvps: z.array(rsvpEntrySchema),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  textOptIn: z.boolean().optional().default(false),
-})
-export type SubmitRsvpRequest = z.infer<typeof submitRsvpRequestSchema>
-export type SubmitRsvpResponse = { success: true }
+// POST /rsvp
 export type SubmitRsvp = (
   request: SubmitRsvpRequest,
-) => Promise<SubmitRsvpResponse>
-
-export { partyEnvelopeSchema, errorEnvelopeSchema }
+) => Promise<{ success: boolean }>

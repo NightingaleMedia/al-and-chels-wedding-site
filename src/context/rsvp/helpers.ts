@@ -99,7 +99,6 @@ export const toSubmitRequest = (
   textOptIn: values.textOptIn,
   rsvps: editableMembers.map((member) => ({
     guestId: member.uuid,
-    guestName: member.Name,
     isAttending: values.responses[member.uuid] ?? false,
     // The form calls it dietaryPreference; the backend field is foodPref.
     foodPref: values.guestDetails[member.uuid]?.dietaryPreference,

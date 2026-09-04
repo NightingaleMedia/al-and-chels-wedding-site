@@ -1,6 +1,9 @@
 'use server'
 
-import { partyEnvelopeSchema, type SearchGuestByName } from './weddingBackend.schemas'
+import {
+  partyResponseSchema,
+  type SearchGuestByName,
+} from './weddingBackend.schemas'
 import { backendClient } from '../backendClient'
 
 const SEARCH_GUEST_BY_NAME_ENDPOINT = '/info/party-by-guest/search'
@@ -10,7 +13,6 @@ export const searchGuestByName = (async (request) => {
     method: 'POST',
     body: JSON.stringify(request),
   })
-  const parsed = partyEnvelopeSchema.parse(await res.json())
-  if (!parsed.ok) throw new Error(parsed.error)
-  return parsed.data
+  if (!res.ok) throw new Error(res.statusText)
+  return partyResponseSchema.parse(await res.json()).data
 }) satisfies SearchGuestByName

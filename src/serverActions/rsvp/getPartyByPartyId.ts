@@ -1,7 +1,7 @@
 'use server'
 
 import {
-  partyEnvelopeSchema,
+  partyResponseSchema,
   type GetPartyByPartyId,
 } from './weddingBackend.schemas'
 import { backendClient } from '../backendClient'
@@ -12,7 +12,6 @@ export const getPartyByPartyId = (async (partyId) => {
   const res = await backendClient(
     `${GET_PARTY_BY_PARTY_ID_ENDPOINT}/${partyId}`,
   )
-  const parsed = partyEnvelopeSchema.parse(await res.json())
-  if (!parsed.ok) throw new Error(parsed.error)
-  return parsed.data
+  if (!res.ok) throw new Error(res.statusText)
+  return partyResponseSchema.parse(await res.json()).data
 }) satisfies GetPartyByPartyId
