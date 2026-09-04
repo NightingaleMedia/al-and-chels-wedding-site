@@ -1,0 +1,5 @@
+{
+  "project_name": "wedding-site-dev",
+  "engine": "bash",
+  "command": "sh scripts/deploy.sh dev"
+}

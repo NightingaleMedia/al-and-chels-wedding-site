@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path' | { read -r f; if [[ \"$f\" == */plan.md ]]; then spec_dir=$(dirname \"$f\"); spec_dir=$(dirname \"$spec_dir\"); cp \"$f\" \"$spec_dir/plan.md\" 2>/dev/null || true; fi; }",
+            "statusMessage": "Saving plan to spec directory..."
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": ".*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "current_branch=$(git branch --show-current 2>/dev/null || echo ''); if [[ \"$current_branch\" == feature/* ]]; then echo '{\"systemMessage\": \"⚠️  You are on a feature branch. Create a phase branch first: .claude/scripts/create-feature-branch.sh <spec-id> <phase-desc>\"}'; fi",
+            "once": false
+          }
+        ]
+      }
+    ]
+  }
+}
