@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { Card, Typography } from '@mui/material'
 import Image from 'next/image'
 import type { Metadata } from 'next'
 
@@ -19,11 +19,15 @@ export const metadata: Metadata = {
   },
 }
 
+const WIDTH = 360
+
 export default function SaveTheDatePage() {
   return (
-    <div className="w-screen h-screen flex flex-col items-center justify-center bg-[#fff2e5]">
-      <div className="grid lg:grid-cols-[60px_300px] relative grid-cols-[9fr_50fr] w-[340px]">
-        <div className="relative h-full flex items-center justify-center overflow-hidden">
+    <div className="w-screen h-screen flex flex-col items-center pt-16">
+      <div
+        className={`grid lg:grid-cols-[calc(${WIDTH}px_*_0.16)_calc(${WIDTH}px_*_0.84)] relative grid-cols-[9fr_50fr] w-[360px]`}
+      >
+        <div className="relative h-full flex items-center justify-center overflow-hidden border border-black">
           <div className="rotate-[-90deg] whitespace-nowrap">
             <Typography
               variant="h1"
@@ -39,11 +43,11 @@ export default function SaveTheDatePage() {
             <Image
               src="/img/save-the-date-1.png"
               alt="Save The Date"
-              width={300}
-              height={360}
+              width={WIDTH * 0.841}
+              height={400}
               style={{
                 opacity: '0.85',
-                maxWidth: '68vw',
+                // maxWidth: '68vw',
                 border: '1px solid #000',
               }}
             />

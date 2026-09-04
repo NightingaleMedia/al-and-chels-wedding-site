@@ -3,7 +3,7 @@ import { Box, Button, Typography } from '@mui/material'
 
 export default function AccomodationsPage() {
   return (
-    <Box className="max-w-[900px]">
+    <Box className="max-w-[900px] px-4 pt-10 mx-auto">
       <Typography variant="h1">Accommodations</Typography>
       <Typography variant="body1">
         We've reserved a block of rooms at two hotels located in downtown
@@ -12,34 +12,34 @@ export default function AccomodationsPage() {
         property.
         <br />
         <br />
-        We highly recommend booking at the two options below, but if those are
-        full, there are several other great options in the area that will be
-        close to the shuttle service. Just be sure to book downtown if you want
-        to be close to the bride and groom and the transportation!
+        We highly recommend booking at the two options below. But just be sure
+        to book downtown to be close to the bride and groom and transportation!
       </Typography>
       <div className="mt-20">
         <Typography variant="h1">Hotel Options</Typography>
         <div className="flex flex-col lg:flex-row gap-8">
-          <OutlineCard
-            maxWidth={330}
-            imageSrc="https://cache.marriott.com/content/dam/marriott-renditions/TOLGP/tolgp-entrance-0055-sq.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=520px:*"
-            imageAlt="Save The Date"
-            tableTitle="Renaissance Toledo"
-            tableRows={[
-              <>
-                <td>
-                  <div className="flex flex-col items-center justify-center">
-                    <Typography variant="caption">
-                      444 North Summit Street
-                    </Typography>
-                  </div>
-                </td>
-                <td>
-                  <Typography variant="caption">15 Rooms</Typography>
-                </td>
-              </>,
-            ]}
-          />
+          <div className="min-w-[330px]">
+            <OutlineCard
+              maxWidth={330}
+              imageSrc="https://cache.marriott.com/content/dam/marriott-renditions/TOLGP/tolgp-entrance-0055-sq.jpg?output-quality=70&interpolation=progressive-bilinear&downsize=520px:*"
+              imageAlt="Save The Date"
+              tableTitle="Renaissance Toledo"
+              tableRows={[
+                <>
+                  <td>
+                    <div className="flex flex-col items-center justify-center">
+                      <Typography variant="caption">
+                        444 North Summit Street
+                      </Typography>
+                    </div>
+                  </td>
+                  <td>
+                    <Typography variant="caption">15 Rooms</Typography>
+                  </td>
+                </>,
+              ]}
+            />
+          </div>
           <div>
             <Typography variant="body1">
               Room Block Details
@@ -89,22 +89,26 @@ export default function AccomodationsPage() {
                 + $3.50 nightly occupancy tax).
               </Typography>
             </div>
-            <OutlineCard
-              maxWidth={440}
-              imageSrc="https://media-api.xogrp.com/images/a44c3c47-c17c-4a8e-82cb-c833f3abd660~sc_675.375?quality=90"
-              imageAlt="Save The Date"
-              tableTitle="Hilton Garden"
-              tableRows={[
-                <>
-                  <td>
-                    <Typography variant="caption">101 N Summit St,</Typography>
-                  </td>
-                  <td>
-                    <Typography variant="caption">30 Rooms</Typography>
-                  </td>
-                </>,
-              ]}
-            />
+            <div className="min-w-[380px]">
+              <OutlineCard
+                maxWidth={440}
+                imageSrc="https://media-api.xogrp.com/images/a44c3c47-c17c-4a8e-82cb-c833f3abd660~sc_675.375?quality=90"
+                imageAlt="Save The Date"
+                tableTitle="Hilton Garden"
+                tableRows={[
+                  <>
+                    <td>
+                      <Typography variant="caption">
+                        101 N Summit St,
+                      </Typography>
+                    </td>
+                    <td>
+                      <Typography variant="caption">30 Rooms</Typography>
+                    </td>
+                  </>,
+                ]}
+              />
+            </div>
           </div>
         </div>
       </div>

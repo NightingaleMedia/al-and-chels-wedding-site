@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import Image from 'next/image'
-import { Box, Typography } from '@mui/material'
+import { Box, Card, Typography } from '@mui/material'
 
 type OutlineCardProps = {
   title?: ReactNode
@@ -20,13 +20,13 @@ export default function OutlineCard({
   maxWidth,
 }: OutlineCardProps) {
   return (
-    <Box sx={{ maxWidth: maxWidth }}>
+    <Box>
       {title && (
         <div className="relative h-full flex items-center justify-center overflow-hidden">
           <div className="rotate-[-90deg] whitespace-nowrap">{title}</div>
         </div>
       )}
-      <div className="flex flex-col items-center justify-center w-full">
+      <div className="flex flex-col w-full">
         <div>
           <Image
             src={imageSrc}
@@ -35,11 +35,10 @@ export default function OutlineCard({
             height={360}
             style={{
               opacity: '0.85',
-              maxWidth: '68vw',
               border: '1px solid #000',
             }}
           />
-          <div className="font-monotype">
+          <Box className="font-monotype" sx={{ maxWidth }}>
             <table className="w-full text-center">
               <thead>
                 <tr>
@@ -59,7 +58,7 @@ export default function OutlineCard({
                 ))}
               </tbody>
             </table>
-          </div>
+          </Box>
         </div>
       </div>
     </Box>

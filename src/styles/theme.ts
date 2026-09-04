@@ -11,12 +11,18 @@ const theme = createTheme({
       xl: 768,
     },
   },
+
   palette: {
     primary: {
       main: '#000000',
     },
     secondary: {
-      main: '#ffffff',
+      main: '#0b0b0b',
+      //#endregion
+    },
+    background: {
+      default: '#F8F1D6',
+      paper: '#fffaf1',
     },
   },
   typography: {
@@ -25,6 +31,8 @@ const theme = createTheme({
       fontFamily: 'var(--font-monotype)',
       lineHeight: 1.2,
       fontWeight: 400,
+      textTransform: 'uppercase',
+      color: '#4e2d11',
     },
     h2: {
       fontSize: 'clamp(1.5rem, 6vw, 2.25rem)', // 24px → 36px

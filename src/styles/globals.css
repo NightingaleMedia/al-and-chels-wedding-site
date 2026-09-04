@@ -2,8 +2,9 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
+  --background: #fff2e5;
   --foreground: #171717;
+  --bg-card: #fff5eb;
 }
 @theme inline {
   --font-archivo: var(
@@ -16,6 +17,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-card: var(--bg-card);
 
   /* Two breakpoints only: default = small (<768px), lg: = large (≥768px) */
   --breakpoint-sm: initial;
@@ -39,6 +41,7 @@ html {
   padding: 0;
   margin: 0;
   font-size: 16px;
+  background-color: var(--background);
 }
 body {
   background: var(--background);
