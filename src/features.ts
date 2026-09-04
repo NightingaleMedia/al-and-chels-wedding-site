@@ -1,4 +1,4 @@
 export const FEATURES = {
-  navbar: false,
-  onlySaveTheDate: true,
+  navbar: true,
+  onlySaveTheDate: false,
 }

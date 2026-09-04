@@ -2,6 +2,15 @@ import { createTheme } from '@mui/material'
 import { grey } from '@mui/material/colors'
 
 const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0, // small: < 768px
+      sm: 768, // large: ≥ 768px (use lg: in Tailwind)
+      md: 768,
+      lg: 768,
+      xl: 768,
+    },
+  },
   palette: {
     primary: {
       main: '#000000',
