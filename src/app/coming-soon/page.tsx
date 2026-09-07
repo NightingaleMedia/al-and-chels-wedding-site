@@ -1,5 +1,5 @@
 import { ComingSoonPage } from '@/components/pageComponents/ComingSoonPageComponents'
 
-export default function OurStoryPage() {
+export default function ComingSoon() {
   return <ComingSoonPage />
 }
