@@ -99,6 +99,7 @@ export default function GuestSearch() {
           onChange={(event) => setQuery(event.target.value)}
           disabled={state.status === 'searching'}
           fullWidth
+          variant="filled"
         />
         <div className="flex w-full gap-3">
           <Button

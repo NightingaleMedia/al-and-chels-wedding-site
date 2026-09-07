@@ -21,6 +21,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
+import Image from 'next/image'
 
 type NavLink = {
   label: string
@@ -164,7 +165,14 @@ export default function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   return (
-    <AppBar position="fixed" color="secondary" elevation={1}>
+    <AppBar
+      position="fixed"
+      sx={(theme) => ({
+        bgcolor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+      })}
+      elevation={1}
+    >
       <Toolbar>
         <Typography
           variant="body2"
@@ -200,6 +208,24 @@ export default function NavBar() {
         onClose={() => setDrawerOpen(false)}
       >
         <div className="w-64">
+          <ListItem
+            disablePadding
+            sx={{ justifyContent: 'center' }}
+            className="flex justify-center gap-4 items-center"
+          >
+            <Typography variant="body2" className="text-center">
+              5.29.27
+            </Typography>
+            <div>
+              <Image
+                src="/marigold_32.png"
+                className="spin-slow"
+                alt="Logo"
+                width={32}
+                height={32}
+              />
+            </div>
+          </ListItem>
           <List>
             {navLinks.map((nl, i) => (
               <>

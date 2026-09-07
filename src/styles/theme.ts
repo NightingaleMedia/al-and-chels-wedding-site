@@ -25,6 +25,37 @@ const theme = createTheme({
       paper: '#fffaf1',
     },
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        ul: {
+          padding: 0,
+        },
+      },
+    },
+    MuiList: {
+      styleOverrides: {
+        root: {
+          padding: 0,
+        },
+      },
+    },
+    MuiListItem: {
+      styleOverrides: {
+        root: {
+          minHeight: '55px',
+        },
+      },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          minHeight: '55px',
+        },
+      },
+    },
+  },
+
   typography: {
     h1: {
       fontSize: 'clamp(2rem, 8vw, 3rem)', // Responsive: 32px mobile → 48px desktop
