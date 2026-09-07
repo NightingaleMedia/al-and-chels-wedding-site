@@ -21,6 +21,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
+import Image from 'next/image'
 
 type NavLink = {
   label: string
@@ -33,28 +34,27 @@ const navLinks: NavLink[] = [
     label: 'About Us',
     href: '/about-us',
     children: [
-      { label: 'Add To The Story', href: '/about-us#getting-there' },
-      { label: 'Our Story', href: '/about-us#our-story' },
-      { label: 'Day of Travel', href: '/travel#day-of-travel' },
-      { label: 'Pictures', href: '/pictures' },
+      { label: '📖 Our Story', href: '/about-us' },
+      { label: '📝 Add To The Story', href: '/about-us/add-your-story' },
+      { label: '📸 Add Your Pictures', href: '/about-us/add-your-pictures' },
     ],
   },
   {
     label: 'Travel',
     href: '/travel',
     children: [
-      { label: 'Getting There', href: '/travel#getting-there' },
-      { label: 'Accommodations', href: '/travel/accommodations' },
-      { label: 'Day of Travel', href: '/travel#day-of-travel' },
+      { label: '🗺️ Getting There', href: '/travel/getting-there' },
+      { label: '🏨 Accommodations', href: '/travel/accommodations' },
+      { label: '🧳 Day of Travel', href: '/travel/day-of-travel' },
     ],
   },
   {
     label: 'The Wedding',
     href: '/the-wedding',
     children: [
-      { label: 'Schedule', href: '/the-wedding#schedule' },
-      { label: 'Location', href: '/the-wedding#location' },
-      { label: 'RSVP', href: '/rsvp' },
+      { label: '🗓️ Schedule', href: '/the-wedding/schedule' },
+      { label: '📍 Location', href: '/the-wedding/location' },
+      { label: '💌 RSVP', href: '/rsvp' },
     ],
   },
   { label: 'FAQs', href: '/faqs' },
@@ -165,7 +165,14 @@ export default function NavBar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   return (
-    <AppBar position="fixed" color="secondary" elevation={1}>
+    <AppBar
+      position="fixed"
+      sx={(theme) => ({
+        bgcolor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+      })}
+      elevation={1}
+    >
       <Toolbar>
         <Typography
           variant="body2"
@@ -201,6 +208,24 @@ export default function NavBar() {
         onClose={() => setDrawerOpen(false)}
       >
         <div className="w-64">
+          <ListItem
+            disablePadding
+            sx={{ justifyContent: 'center' }}
+            className="flex justify-center gap-4 items-center"
+          >
+            <Typography variant="body2" className="text-center">
+              5.29.27
+            </Typography>
+            <div>
+              <Image
+                src="/marigold_32.png"
+                className="spin-slow"
+                alt="Logo"
+                width={32}
+                height={32}
+              />
+            </div>
+          </ListItem>
           <List>
             {navLinks.map((nl, i) => (
               <>

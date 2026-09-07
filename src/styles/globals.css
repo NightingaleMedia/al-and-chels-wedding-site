@@ -2,8 +2,9 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
+  --background: #fff2e5;
   --foreground: #171717;
+  --bg-card: #fff5eb;
 }
 @theme inline {
   --font-archivo: var(
@@ -16,6 +17,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-card: var(--bg-card);
 
   /* Two breakpoints only: default = small (<768px), lg: = large (≥768px) */
   --breakpoint-sm: initial;
@@ -25,10 +27,7 @@
   --breakpoint-2xl: initial;
 }
 @layer base {
-  h1 {
-    font-family: var(--font-archivo);
-    text-transform: uppercase;
-  }
+  /* Typography styles are now managed by MUI theme.ts */
 }
 
 @media (prefers-color-scheme: light) {
@@ -42,6 +41,7 @@ html {
   padding: 0;
   margin: 0;
   font-size: 16px;
+  background-color: var(--background);
 }
 body {
   background: var(--background);
@@ -62,4 +62,23 @@ th {
 td {
   border: 1px solid #171717;
   padding: 5px;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin-slow {
+    animation: none;
+  }
 }

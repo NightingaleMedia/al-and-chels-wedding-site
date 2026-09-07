@@ -1,5 +1,5 @@
 import { ComingSoonPage } from '@/components/pageComponents/ComingSoonPageComponents'
 
-export default function TheLocationPage() {
+export default function SchedulePage() {
   return <ComingSoonPage />
 }

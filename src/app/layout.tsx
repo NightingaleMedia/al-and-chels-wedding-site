@@ -65,7 +65,7 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeRegistry>
             {FEATURES.navbar && <NavBar />}
-            <main className="min-h-full max-w-screen-md lg:ml-[15%] px-4 mt-[64px]">
+            <main className="min-h-full max-w-screen-md mt-[42px]">
               <Box className="pt-6">{children}</Box>
             </main>
           </ThemeRegistry>
