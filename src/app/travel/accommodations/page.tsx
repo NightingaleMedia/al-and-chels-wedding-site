@@ -1,14 +1,21 @@
 import OutlineCard from '@/components/OutlineCard'
-import { Box, Button, Typography } from '@mui/material'
+import { pageEnabledOrComingSoon } from '@/utils/getComingSoonPage'
+import { Box, Typography } from '@mui/material'
 
-export default function AccomodationsPage() {
+export default async function AccomodationsPage() {
+  const comingSoon = pageEnabledOrComingSoon('/travel/accommodations')
+
+  if (comingSoon) {
+    return comingSoon
+  }
+
   return (
     <Box className="max-w-[900px] px-4 pt-10 mx-auto">
       <Typography variant="h1">Accommodations</Typography>
       <Typography variant="body1">
-        We've reserved a block of rooms at two hotels located in downtown
-        Toledo! Since our venue is a short drive away, we've arranged
-        complimentary charter buses that'll drive you from downtown to the
+        We&apos;ve reserved a block of rooms at two hotels located in downtown
+        Toledo! Since our venue is a short drive away, we&apos;ve arranged
+        complimentary charter buses that&apos;ll drive you from downtown to the
         property.
         <br />
         <br />
@@ -66,6 +73,26 @@ export default function AccomodationsPage() {
         </div>
         <div className="mt-20">
           <div className="flex flex-col lg:flex-row gap-8">
+            <div className="min-w-[360px]">
+              <OutlineCard
+                maxWidth={440}
+                imageSrc="https://media-api.xogrp.com/images/a44c3c47-c17c-4a8e-82cb-c833f3abd660~sc_675.375?quality=90"
+                imageAlt="Save The Date"
+                tableTitle="Hilton Garden"
+                tableRows={[
+                  <>
+                    <td>
+                      <Typography variant="caption">
+                        101 N Summit St,
+                      </Typography>
+                    </td>
+                    <td>
+                      <Typography variant="caption">30 Rooms</Typography>
+                    </td>
+                  </>,
+                ]}
+              />
+            </div>
             <div>
               <Typography variant="body1">
                 Room Block Details
@@ -88,26 +115,6 @@ export default function AccomodationsPage() {
                 discounted group rate. Rates are before taxes (14.75% city/state
                 + $3.50 nightly occupancy tax).
               </Typography>
-            </div>
-            <div className="min-w-[380px]">
-              <OutlineCard
-                maxWidth={440}
-                imageSrc="https://media-api.xogrp.com/images/a44c3c47-c17c-4a8e-82cb-c833f3abd660~sc_675.375?quality=90"
-                imageAlt="Save The Date"
-                tableTitle="Hilton Garden"
-                tableRows={[
-                  <>
-                    <td>
-                      <Typography variant="caption">
-                        101 N Summit St,
-                      </Typography>
-                    </td>
-                    <td>
-                      <Typography variant="caption">30 Rooms</Typography>
-                    </td>
-                  </>,
-                ]}
-              />
             </div>
           </div>
         </div>
