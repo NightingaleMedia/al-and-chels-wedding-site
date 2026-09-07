@@ -75,9 +75,7 @@ export default function SaveTheDatePage() {
                     </td>
                     <td>
                       <div className="flex flex-col items-center justify-center">
-                        <Typography variant="caption">
-                          4850 County Road 1-2, Swanton, OH 43558
-                        </Typography>
+                        <Typography variant="caption">Swanton, OH</Typography>
                       </div>
                     </td>
                   </tr>

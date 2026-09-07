@@ -47,6 +47,9 @@ export default function CalendarButton() {
           <IconButton
             color="primary"
             href={APPLE_CALENDAR_URL}
+            download="wedding.ics"
+            aria-label="Download Apple Calendar event"
+            title="Download Apple Calendar event"
             onClick={() => setOpen(false)}
           >
             <AppleIcon />

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Archivo_Black, IBM_Plex_Mono, Roboto } from 'next/font/google'
 import '../styles/globals.css'
 import NavBar from '@/components/NavBar'
@@ -47,7 +48,7 @@ const caption = Roboto({
 })
 
 export const metadata: Metadata = {
-  title: 'Our Wedding',
+  title: "Chels & Al's Wedding",
   description: 'Wedding website',
 }
 
@@ -65,9 +66,22 @@ export default function RootLayout({
         <AppRouterCacheProvider>
           <ThemeRegistry>
             {FEATURES.navbar && <NavBar />}
-            <main className="min-h-full max-w-screen-md mt-[42px]">
+            <main className="min-h-full max-w-screen-md mt-[42px] flex-1">
               <Box className="pt-6">{children}</Box>
             </main>
+            <footer className="mt-8 bg-brown-500 border-t border-black/20 px-2 py-4 text-center text-xs">
+              <nav
+                aria-label="Legal links"
+                className="flex justify-center gap-4"
+              >
+                <Link className="underline" href="/terms-and-conditions">
+                  Terms &amp; Conditions
+                </Link>
+                <Link className="underline" href="/privacy-policy">
+                  Privacy Policy
+                </Link>
+              </nav>
+            </footer>
           </ThemeRegistry>
         </AppRouterCacheProvider>
       </body>
