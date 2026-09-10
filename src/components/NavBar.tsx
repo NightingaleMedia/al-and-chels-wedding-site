@@ -91,9 +91,9 @@ function DesktopNavItem({ link }: { link: NavLink }) {
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
-        {link.children.map((child) => (
+        {link.children.map((child, idx) => (
           <MenuItem
-            key={child.href}
+            key={`${child.href}-${idx}`}
             onClick={() => {
               setAnchor(null)
               router.push(child.href)
@@ -142,8 +142,8 @@ function MobileNavItem({
       </ListItem>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List disablePadding>
-          {link.children.map((child) => (
-            <ListItem key={child.href} disablePadding>
+          {link.children.map((child, idx) => (
+            <ListItem key={`${child.href}-${idx}`} disablePadding>
               <ListItemButton
                 sx={{ pl: 4 }}
                 onClick={() => {
@@ -185,8 +185,8 @@ export default function NavBar() {
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1">
-          {navLinks.map((nl) => (
-            <DesktopNavItem key={nl.href} link={nl} />
+          {navLinks.map((nl, idx) => (
+            <DesktopNavItem key={`${nl.href}-${idx}`} link={nl} />
           ))}
         </nav>
 
@@ -230,11 +230,13 @@ export default function NavBar() {
             {navLinks.map((nl, i) => (
               <>
                 <MobileNavItem
-                  key={nl.href}
+                  key={`${nl.href}-${i}`}
                   link={nl}
                   onClose={() => setDrawerOpen(false)}
                 />
-                {i < navLinks.length - 1 && <Divider key={`d-${nl.href}`} />}
+                {i < navLinks.length - 1 && (
+                  <Divider key={`d-${nl.href}-${i}`} />
+                )}
               </>
             ))}
           </List>
