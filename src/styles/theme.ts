@@ -18,8 +18,10 @@ const theme = createTheme({
     },
     secondary: {
       main: '#0b0b0b',
+      dark: '#4e2d11',
       //#endregion
     },
+
     background: {
       default: '#F8F1D6',
       paper: '#fffaf1',
@@ -54,6 +56,29 @@ const theme = createTheme({
         },
       },
     },
+    // // Custom Paper variant for form containers
+    // // This variant provides a consistent styled container for forms across the site
+    // // Customize the visual properties below to match your design requirements
+    // MuiPaper: {
+    //   variants: [
+    //     {
+    //       props: { variant: 'form' },
+    //       style: ({ theme }) => ({
+    //         // Customize padding for form container
+    //         padding: theme.spacing(3),
+
+    //         // Customize elevation/shadow
+    //         boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
+    //         // Customize border style and color
+    //         border: '1px solid rgba(0, 0, 0, 0.12)',
+    //         // Customize background color
+    //         backgroundColor: '#e3ccbe',
+    //         // Customize corner rounding
+    //         borderRadius: 0,
+    //       }),
+    //     },
+    //   ],
+    // },
   },
 
   typography: {
@@ -92,7 +117,7 @@ const theme = createTheme({
       fontWeight: 700,
     },
     h6: {
-      fontSize: 'clamp(0.875rem, 2.5vw, 1rem)', // 14px → 16px
+      fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', // 16px → 18px
       fontFamily: 'var(--font-body1)',
       lineHeight: 1.5,
       fontWeight: 700,

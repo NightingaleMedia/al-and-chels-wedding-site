@@ -27,9 +27,6 @@ export default async function PartyRSVPPage(
 
   return (
     <main className="mx-auto flex w-full max-w-xl flex-col px-4 pb-8">
-      <Typography variant="h1" sx={{ lineHeight: 0.85 }}>
-        {party.partyName}
-      </Typography>
       <RSVPForm party={party} />
     </main>
   )
