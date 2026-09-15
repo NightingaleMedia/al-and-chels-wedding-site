@@ -9,6 +9,11 @@ import ThemeRegistry from '@/styles/ThemeRegistry'
 import localFont from 'next/font/local'
 import { Box } from '@mui/material'
 
+// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
+// Remove this opt-out after verifying the segment passes validation without it.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 // Display font - Elegant script for hero/titles
 const monotype = localFont({
   src: '../fonts/Talina.otf',

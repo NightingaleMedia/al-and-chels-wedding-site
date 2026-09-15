@@ -2,12 +2,11 @@ import { ScheduleDayBlockProps } from '@/components/ScheduleDayBlock'
 
 export const scheduleData: ScheduleDayBlockProps[] = [
   {
-    emoji: '🌙',
     dayTitle: 'Friday',
     title: 'The Welcome Event',
     location: {
       name: "Al's Parents Home",
-      url: '#', // Replace with actual Google Maps link or directions
+      url: 'https://maps.app.goo.gl/R7PhYM9DbYUN9sRs9',
     },
     timeSlots: [
       {
@@ -27,7 +26,7 @@ export const scheduleData: ScheduleDayBlockProps[] = [
     title: 'Wedding Day',
     location: {
       name: 'Wedding Venue',
-      url: '#', // Replace with actual Google Maps link or directions
+      url: 'https://maps.app.goo.gl/BS9LbrDfN53yx25Z9', // Replace with actual Google Maps link or directions
     },
     timeSlots: [
       {

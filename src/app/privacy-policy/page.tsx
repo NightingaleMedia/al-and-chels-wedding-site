@@ -1,6 +1,11 @@
 import type { Metadata } from 'next'
 import { SUPPORT_EMAIL } from '@/constants'
 
+// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
+// Remove this opt-out after verifying the segment passes validation without it.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 export const metadata: Metadata = {
   title: "Privacy Policy | Al and Chelsea's Wedding",
   description: "Privacy Policy for Al and Chelsea's Wedding website.",
