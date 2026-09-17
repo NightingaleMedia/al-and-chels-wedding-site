@@ -55,6 +55,7 @@ const navLinks: NavLink[] = [
       { label: '🗓️ Schedule', href: '/the-wedding/schedule' },
       { label: '📍 Location', href: '/the-wedding/location' },
       { label: '💌 RSVP', href: '/rsvp' },
+      { label: '💌 Send Me Updates', href: '/send-me-updates' },
     ],
   },
   { label: 'FAQs', href: '/faqs' },
