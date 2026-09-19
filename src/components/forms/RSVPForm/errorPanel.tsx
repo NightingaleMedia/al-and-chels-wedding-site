@@ -9,7 +9,7 @@ export const ErrorPanel = ({
   children: React.ReactNode
   errorMessage?: string
 }) => (
-  <section className="flex flex-col items-start gap-3">
+  <section className="flex flex-col items-start gap-3 max-w-md mx-auto">
     <Typography variant="h6">Something went wrong</Typography>
     <Typography variant="body1">
       We couldn&apos;t find your RSVP{errorMessage ? `: ${errorMessage}` : ''}.

@@ -2,44 +2,19 @@
 
 import { z } from 'zod'
 import { backendClient } from '../backendClient'
-
-/* -------------------------------- schemas -------------------------------- */
-
-export const subscribeRequestSchema = z.object({
-  phoneNumber: z.string().min(1, 'Phone number is required'),
-})
-
-export const subscriberSchema = z.object({
-  phoneNumber: z.string(),
-  guestId: z.string().optional(),
-  status: z.enum(['subscribed', 'unsubscribed']),
-  subscribedAt: z.string(),
-  unsubscribedAt: z.string().optional(),
-  source: z.enum(['rsvp_form', 'sms', 'admin']),
-})
-
-export const subscribeResponseSchema = z.object({
-  ok: z.literal(true),
-  subscriber: subscriberSchema,
-})
-
-/* --------------------------------- types --------------------------------- */
-
-export type SubscribeRequest = z.infer<typeof subscribeRequestSchema>
-export type Subscriber = z.infer<typeof subscriberSchema>
-export type SubscribeResponse = z.infer<typeof subscribeResponseSchema>
-
-export type SubscribeToUpdates = (
-  request: SubscribeRequest,
-) => Promise<{ success: boolean; error?: string }>
+import { SubscribeRequest, SubscribeToUpdates } from './optIn.schemas'
 
 /* ------------------------------- actions ------------------------------- */
 
 const SUBSCRIBE_ENDPOINT = '/sms/subscribers'
 
-export const subscribeToUpdates = (async (request) => {
+const subscribeToUpdatesFun = (async (request) => {
+  let baseEndpoint = SUBSCRIBE_ENDPOINT
+  if ('email' in request) {
+    baseEndpoint = baseEndpoint + '/email'
+  }
   try {
-    const res = await backendClient(SUBSCRIBE_ENDPOINT, {
+    const res = await backendClient(baseEndpoint, {
       method: 'POST',
       body: JSON.stringify(request),
     })
@@ -62,3 +37,7 @@ export const subscribeToUpdates = (async (request) => {
     }
   }
 }) satisfies SubscribeToUpdates
+
+export async function subscribeToUpdates(request: SubscribeRequest) {
+  return subscribeToUpdatesFun(request)
+}

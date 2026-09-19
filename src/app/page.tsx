@@ -1,87 +1,71 @@
-import { Box } from '@mui/material'
+'use client'
+import { NavLinkList } from '@/components/homeNavLinks/NavLinkList'
+import { Box, Typography } from '@mui/material'
 import Image from 'next/image'
-import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 // @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
 // Remove this opt-out after verifying the segment passes validation without it.
 // See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false;
+// export const instant = false
+
+const STATIC_WIDTH = 350
 
 export default function Home() {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      let oldCount = count
+      if (oldCount >= 2) {
+        oldCount = 0
+      } else {
+        oldCount = oldCount + 1
+      }
+      setCount(() => oldCount)
+    }, 500)
+    return () => clearInterval(timer)
+  }, [count])
+
+  const photos = [
+    <Image
+      key={`photo-0`}
+      src="/img/home/photo1.png"
+      alt="Home Photo 1"
+      width={STATIC_WIDTH}
+      height={(STATIC_WIDTH * 400) / 600}
+    />,
+    <Image
+      key={`photo-1`}
+      src="/img/home/photo2.png"
+      alt="Home Photo 2"
+      width={STATIC_WIDTH}
+      height={(STATIC_WIDTH * 400) / 600}
+    />,
+    <Image
+      key={`photo-2`}
+      src="/img/home/photo3.png"
+      alt="Home Photo 3"
+      width={STATIC_WIDTH}
+      height={(STATIC_WIDTH * 400) / 600}
+    />,
+  ]
+
   return (
-    <main className="p-8">
-      <nav className="mt-8">
-        <ul className="flex flex-col gap-4 max-w-md mx-auto">
-          <li>
-            <Link
-              href="/rsvp"
-              className="flex items-center gap-3 p-6 bg-white border-2 border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-gray-300 transition-all"
-            >
-              <span className="text-2xl">✉️</span>
-              <span className="flex-1 font-semibold text-lg">RSVP</span>
-              <svg
-                className="w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/about-us"
-              className="flex items-center gap-3 p-6 bg-white border-2 border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-gray-300 transition-all"
-            >
-              <span className="text-2xl">💕</span>
-              <span className="flex-1 font-semibold text-lg">Our Story</span>
-              <svg
-                className="w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/the-wedding/schedule"
-              className="flex items-center gap-3 p-6 bg-white border-2 border-gray-200 rounded-lg shadow-sm hover:shadow-md hover:border-gray-300 transition-all"
-            >
-              <span className="text-2xl">💒</span>
-              <span className="flex-1 font-semibold text-lg">
-                The Wedding/Schedule
-              </span>
-              <svg
-                className="w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </Link>
-          </li>
-        </ul>
-      </nav>
+    <main className="p-4">
+      <Box className="flex flex-col gap-4 overflow-hidden">
+        <Typography
+          variant="h1"
+          align="center"
+          sx={{ fontSize: '8rem' }}
+          className="hidden lg:block"
+        >
+          Getting Married
+        </Typography>
+        <Box className="max-h-[260px] mx-auto overflow-hidden">
+          {photos[count]}
+        </Box>
+      </Box>
+      <NavLinkList />
     </main>
   )
 }

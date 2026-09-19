@@ -4,15 +4,18 @@ import { Archivo_Black, IBM_Plex_Mono, Roboto } from 'next/font/google'
 import '../styles/globals.css'
 import NavBar from '@/components/NavBar'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
+import 'reveal.js/reveal.css'
+import 'reveal.js/theme/black.css'
 import { FEATURES } from '@/features'
 import ThemeRegistry from '@/styles/ThemeRegistry'
 import localFont from 'next/font/local'
 import { Box } from '@mui/material'
+import { Footer } from '@/components/footer/Footer'
 
 // @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
 // Remove this opt-out after verifying the segment passes validation without it.
 // See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false;
+export const instant = false
 
 // Display font - Elegant script for hero/titles
 const monotype = localFont({
@@ -74,19 +77,7 @@ export default function RootLayout({
             <main className="min-h-full max-w-screen-md mt-[42px] flex-1">
               <Box className="pt-6">{children}</Box>
             </main>
-            <footer className="mt-8 bg-brown-500 border-t border-black/20 px-2 py-4 text-center text-xs">
-              <nav
-                aria-label="Legal links"
-                className="flex justify-center gap-4"
-              >
-                <Link className="underline" href="/terms-and-conditions">
-                  Terms &amp; Conditions
-                </Link>
-                <Link className="underline" href="/privacy-policy">
-                  Privacy Policy
-                </Link>
-              </nav>
-            </footer>
+            <Footer />
           </ThemeRegistry>
         </AppRouterCacheProvider>
       </body>

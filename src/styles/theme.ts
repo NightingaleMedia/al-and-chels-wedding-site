@@ -23,7 +23,8 @@ const theme = createTheme({
     },
 
     background: {
-      default: '#F8F1D6',
+      default: 'var(--background)',
+      // default: '#F8F1D6',
       paper: '#fffaf1',
     },
   },
