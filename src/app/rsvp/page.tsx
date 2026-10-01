@@ -1,14 +1,14 @@
+import { Suspense } from 'react'
 import { Divider, Typography } from '@mui/material'
 import GuestSearch from '@/components/forms/GuestSearch/GuestSearch'
-
-// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
-// Remove this opt-out after verifying the segment passes validation without it.
-// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false;
+import { BackendWarmup } from '@/components/warmup/BackendWarmup'
 
 export default function RSVPPage() {
   return (
     <main className="mx-auto flex w-full max-w-xl flex-col gap-4 px-4 py-8">
+      <Suspense fallback={null}>
+        <BackendWarmup />
+      </Suspense>
       <Typography variant="h1">RSVP</Typography>
       <Typography variant="body1">
         Open the RSVP link from your invitation to find your party.

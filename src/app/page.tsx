@@ -32,6 +32,7 @@ export default function Home() {
       src="/img/home/photo1.png"
       alt="Home Photo 1"
       width={STATIC_WIDTH}
+      preload
       height={(STATIC_WIDTH * 400) / 600}
     />,
     <Image
@@ -39,6 +40,7 @@ export default function Home() {
       src="/img/home/photo2.png"
       alt="Home Photo 2"
       width={STATIC_WIDTH}
+      preload
       height={(STATIC_WIDTH * 400) / 600}
     />,
     <Image
@@ -46,6 +48,7 @@ export default function Home() {
       src="/img/home/photo3.png"
       alt="Home Photo 3"
       width={STATIC_WIDTH}
+      preload
       height={(STATIC_WIDTH * 400) / 600}
     />,
   ]
