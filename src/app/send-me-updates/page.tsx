@@ -3,9 +3,9 @@ import { PhoneSubscriberForm } from '@/components/forms/Subscriber/PhoneSubscrib
 import { Box, Typography } from '@mui/material'
 export default function SendMeUpdatesPage() {
   return (
-    <Box className="flex flex-col gap-6 max-w-md mx-auto my-10 p-4">
-      <Typography variant="h2" sx={{ textAlign: 'center' }}>
-        stay in the loop...
+    <Box className="flex flex-col gap-6 max-w-md mx-auto p-4 mb-10">
+      <Typography variant="h1" sx={{ py: 4, textAlign: 'center' }}>
+        Stay In The Loop
       </Typography>
       <PhoneSubscriberForm />
       <Typography variant="h6" sx={{ textAlign: 'center' }}>

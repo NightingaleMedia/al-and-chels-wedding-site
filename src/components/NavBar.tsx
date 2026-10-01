@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import AppBar from '@mui/material/AppBar'
@@ -134,7 +134,7 @@ function MobileNavItem({
   }
 
   return (
-    <>
+    <Fragment key={link.href}>
       <ListItem disablePadding>
         <ListItemButton onClick={() => setOpen((v) => !v)}>
           <ListItemText primary={link.label} />
@@ -158,7 +158,7 @@ function MobileNavItem({
           ))}
         </List>
       </Collapse>
-    </>
+    </Fragment>
   )
 }
 
@@ -229,7 +229,7 @@ export default function NavBar() {
           </ListItem>
           <List>
             {navLinks.map((nl, i) => (
-              <>
+              <Fragment key={`${nl.href}-${i}`}>
                 <MobileNavItem
                   key={`${nl.href}-${i}`}
                   link={nl}
@@ -238,7 +238,7 @@ export default function NavBar() {
                 {i < navLinks.length - 1 && (
                   <Divider key={`d-${nl.href}-${i}`} />
                 )}
-              </>
+              </Fragment>
             ))}
           </List>
         </div>

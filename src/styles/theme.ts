@@ -57,6 +57,18 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          fontSize: '0.875rem', // smaller than body1 (1rem)
+          padding: '4px 12px', // tighter than MUI default (6px 16px)
+        },
+        message: {
+          fontSize: '0.75rem', // smaller than body1 (1rem)
+        },
+      },
+    },
     // // Custom Paper variant for form containers
     // // This variant provides a consistent styled container for forms across the site
     // // Customize the visual properties below to match your design requirements

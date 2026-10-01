@@ -1,9 +1,19 @@
 'use client'
 import { useState } from 'react'
 import { useFormik } from 'formik'
-import { Box, Button, Paper, TextField, Typography, Alert } from '@mui/material'
+import {
+  Box,
+  Button,
+  Paper,
+  TextField,
+  Typography,
+  Alert,
+  FormControlLabel,
+  Checkbox,
+} from '@mui/material'
 import { z } from 'zod'
 import { subscribeToUpdates } from '@/serverActions/optIn/optIn'
+import Link from 'next/link'
 
 type SubmissionStatus = 'idle' | 'submitting' | 'success' | 'error'
 
@@ -13,6 +23,7 @@ const phoneValidationSchema = z.object({
     .string()
     .min(1, 'Phone number is required')
     .regex(/^\+?[0-9\s\-()]{10,}$/, 'Enter a valid phone number'),
+  consent: z.boolean().refine((val) => val, 'You must agree to continue'),
 })
 
 export const PhoneSubscriberForm = () => {
@@ -22,8 +33,12 @@ export const PhoneSubscriberForm = () => {
   const formik = useFormik({
     initialValues: {
       phoneNumber: '',
+      consent: false,
     },
     validate: (values) => {
+      if (!values.consent) {
+        return { consent: 'You must agree to continue' }
+      }
       const result = phoneValidationSchema.safeParse(values)
       if (!result.success) {
         const errors: Record<string, string> = {}
@@ -60,7 +75,7 @@ export const PhoneSubscriberForm = () => {
     <Box>
       <Paper variant="form" className="flex flex-col gap-6 outline-1 p-2">
         <Box>
-          <Typography variant="h1" sx={{ lineHeight: 0.85, mt: 2 }}>
+          <Typography variant="h3" sx={{ lineHeight: 0.85, mt: 2 }}>
             Text Updates
           </Typography>
           <Typography variant="body2" sx={{ mt: 1 }}>
@@ -94,11 +109,37 @@ export const PhoneSubscriberForm = () => {
             required
             fullWidth
           />
+          <FormControlLabel
+            control={
+              <Checkbox name="consent" checked={formik.values.consent} />
+            }
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            slotProps={{
+              typography: {
+                style: {
+                  fontSize: '10px',
+                },
+              },
+            }}
+            label="I agree to receive text messages from Al and Chelsea for wedding updates. Msg & data rates may apply."
+          />
+          <Typography variant="body2" sx={{ mt: 1, fontSize: '10px' }}>
+            * Reply STOP to unsubscribe. Read our{' '}
+            <Link href="/privacy-policy">Privacy Policy</Link> or{' '}
+            <Link href="/terms-of-service">Terms of Service</Link> for more
+            information.
+          </Typography>
           <Button
             type="submit"
             variant="contained"
             fullWidth
-            disabled={formik.isSubmitting}
+            disabled={
+              formik.isSubmitting ||
+              !formik.values.phoneNumber ||
+              !formik.values.consent ||
+              !formik.isValid
+            }
           >
             {formik.isSubmitting ? 'Subscribing...' : 'Subscribe'}
           </Button>

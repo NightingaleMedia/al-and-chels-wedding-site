@@ -57,7 +57,7 @@ export const EmailSubscriberForm = () => {
     <Box>
       <Paper variant="form" className="flex flex-col gap-6 outline-1 p-2">
         <Box>
-          <Typography variant="h1" sx={{ lineHeight: 0.85, mt: 2 }}>
+          <Typography variant="h3" sx={{ lineHeight: 0.85, mt: 2 }}>
             Email Updates
           </Typography>
           <Typography variant="body2" sx={{ mt: 1 }}>
