@@ -82,3 +82,5 @@ export type SearchGuestByName = (
 export type SubmitRsvp = (
   request: SubmitRsvpRequest,
 ) => Promise<{ success: boolean }>
+
+export type PingServiceOptions = 'db' | 'sheets'

@@ -124,10 +124,13 @@ const theme = createTheme({
       textTransform: 'uppercase',
     },
     h5: {
-      fontSize: 'clamp(1rem, 3vw, 1.25rem)', // 16px → 20px
-      fontFamily: 'var(--font-body1)',
+      fontSize: 'clamp(1.25rem, 5vw, 1.875rem)', // 20px → 30px
+      fontFamily: 'var(--font-monotype)',
       lineHeight: 1.5,
-      fontWeight: 700,
+      letterSpacing: '0.05em',
+      fontWeight: 200,
+      textTransform: 'uppercase',
+      color: '#201111',
     },
     h6: {
       fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', // 16px → 18px
@@ -144,7 +147,7 @@ const theme = createTheme({
       fontFamily: 'var(--font-body1)',
       fontSize: '0.875rem',
       lineHeight: 1.6,
-      color: grey[600],
+      color: grey[800],
     },
     caption: {
       fontFamily: 'var(--font-secondary)',

@@ -75,7 +75,7 @@ export const PhoneSubscriberForm = () => {
     <Box>
       <Paper variant="form" className="flex flex-col gap-6 outline-1 p-2">
         <Box>
-          <Typography variant="h3" sx={{ lineHeight: 0.85, mt: 2 }}>
+          <Typography variant="h5" sx={{ lineHeight: 0.85, mt: 2 }}>
             Text Updates
           </Typography>
           <Typography variant="body2" sx={{ mt: 1 }}>
