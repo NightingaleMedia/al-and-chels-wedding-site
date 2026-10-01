@@ -1,9 +1,14 @@
 import { notFound } from 'next/navigation'
-import { Button, Typography } from '@mui/material'
+import { Box, Button, Typography } from '@mui/material'
 import RSVPForm from '@/components/forms/RSVPForm/RSVPForm'
 import { getPartyByPartyId } from '@/serverActions/rsvp/getPartyByPartyId'
 import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
 import { ErrorPanel } from '@/components/forms/RSVPForm/errorPanel'
+
+// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
+// Remove this opt-out after verifying the segment passes validation without it.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false
 
 export default async function PartyRSVPPage(
   props: PageProps<'/rsvp/[partyId]'>,
@@ -16,20 +21,26 @@ export default async function PartyRSVPPage(
   } catch {
     return (
       <main>
-        <ErrorPanel>
-          <Button variant="contained" href="/rsvp">
-            Search for your RSVP
-          </Button>
-        </ErrorPanel>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            height: 'var(--content-height)',
+          }}
+        >
+          <ErrorPanel>
+            <Button variant="contained" href="/rsvp">
+              Search for your RSVP
+            </Button>
+          </ErrorPanel>
+        </Box>
       </main>
     )
   }
 
   return (
     <main className="mx-auto flex w-full max-w-xl flex-col px-4 pb-8">
-      <Typography variant="h1" sx={{ lineHeight: 0.85 }}>
-        {party.partyName}
-      </Typography>
       <RSVPForm party={party} />
     </main>
   )

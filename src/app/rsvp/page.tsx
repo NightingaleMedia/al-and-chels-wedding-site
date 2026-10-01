@@ -1,6 +1,11 @@
 import { Divider, Typography } from '@mui/material'
 import GuestSearch from '@/components/forms/GuestSearch/GuestSearch'
 
+// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
+// Remove this opt-out after verifying the segment passes validation without it.
+// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
+export const instant = false;
+
 export default function RSVPPage() {
   return (
     <main className="mx-auto flex w-full max-w-xl flex-col gap-4 px-4 py-8">

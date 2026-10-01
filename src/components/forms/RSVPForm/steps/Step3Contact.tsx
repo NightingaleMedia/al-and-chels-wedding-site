@@ -24,12 +24,13 @@ export default function Step3Contact() {
         onChange={formik.handleChange}
         error={Boolean(formik.errors.email)}
         helperText={formik.errors.email}
+        required
         fullWidth
       />
       <TextField
         name="phone"
         type="tel"
-        label="Phone number"
+        label="Phone number (optional)"
         value={formik.values.phone}
         onChange={formik.handleChange}
         error={Boolean(formik.errors.phone)}
@@ -43,6 +44,7 @@ export default function Step3Contact() {
             name="textOptIn"
             checked={formik.values.textOptIn}
             onChange={formik.handleChange}
+            disabled={!formik.values.phone}
           />
         }
       />

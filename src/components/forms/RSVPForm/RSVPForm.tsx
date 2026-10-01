@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Typography } from '@mui/material'
+import { Box, Button, Divider, Paper, Typography } from '@mui/material'
 import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
 import { RSVPFormProvider, useRSVPForm } from '@/context/rsvp/RSVPFormContext'
 import Step1SelectGuests from './steps/Step1SelectGuests'
@@ -9,40 +9,53 @@ import Step3Contact from './steps/Step3Contact'
 import Step4Result from './steps/Step4Result'
 
 function Steps() {
-  const { step, next, back, formik, status, isDeclineAll, isFinalStep } =
-    useRSVPForm()
+  const context = useRSVPForm()
+  const { step, next, back, formik, status, isDeclineAll, isFinalStep, party } =
+    context
 
   if (step === 4) return <Step4Result />
 
   return (
-    <div className="flex flex-col gap-6 outline-1 p-2">
-      <Typography variant="body2">
-        Step {step} of {isDeclineAll ? 1 : 3}
+    <Box>
+      <Typography variant="h2" sx={{ lineHeight: 0.85, my: 4 }}>
+        {formik.status === 'success'
+          ? `${party.partyName} you're all set!`
+          : `check your people in, ${party.members[0]['First Name'].toLowerCase()}...`}
       </Typography>
 
-      {step === 1 && <Step1SelectGuests />}
-      {step === 2 && <Step2GuestDetails />}
-      {step === 3 && <Step3Contact />}
-
-      <div className="flex flex-1 gap-2 border-t pt-3">
-        <Button
-          variant="outlined"
-          fullWidth
-          onClick={back}
-          disabled={step === 1 || formik.isSubmitting}
-        >
-          Back
-        </Button>
-        <Button
-          variant="contained"
-          fullWidth
-          onClick={next}
-          disabled={formik.isSubmitting || status === 'already-complete'}
-        >
-          {isFinalStep ? 'Submit RSVP' : 'Next'}
-        </Button>
-      </div>
-    </div>
+      <Paper variant="form" className="flex flex-col gap-6 outline-1 p-2">
+        <Box>
+          <Typography variant="h1" sx={{ lineHeight: 0.85, mt: 2 }}>
+            {party.partyName}
+          </Typography>
+          <Typography variant="body2">
+            Step {step} of {isDeclineAll ? 1 : 3}
+          </Typography>
+        </Box>
+        <Divider />
+        {step === 1 && <Step1SelectGuests />}
+        {step === 2 && <Step2GuestDetails />}
+        {step === 3 && <Step3Contact />}
+        <div className="flex flex-1 gap-2 pt-3">
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={back}
+            disabled={step === 1 || formik.isSubmitting}
+          >
+            Back
+          </Button>
+          <Button
+            variant="contained"
+            fullWidth
+            onClick={next}
+            disabled={formik.isSubmitting || status === 'already-complete'}
+          >
+            {isFinalStep ? 'Submit RSVP' : 'Next'}
+          </Button>
+        </div>
+      </Paper>
+    </Box>
   )
 }
 
