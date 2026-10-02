@@ -19,8 +19,8 @@ export default function Layout({
   return (
     <>
       {FEATURES.navbar && <NavBar />}
-      <main className="max-w-screen-md mt-[42px] flex-1">
-        <Box className="pt-6">{children}</Box>
+      <main className="max-w-screen-md pt-[var(--header-height)] flex-1">
+        <Box className="min-h-[var(--content-height)]">{children}</Box>
       </main>
       <Footer />
     </>

@@ -1,6 +1,8 @@
 import { createTheme } from '@mui/material'
 import { grey } from '@mui/material/colors'
 
+const ORANGE = '#f69d0f'
+const BROWN = '#4e2d11'
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -14,11 +16,12 @@ const theme = createTheme({
 
   palette: {
     primary: {
-      main: '#000000',
+      main: BROWN,
+      contrastText: '#ffffff',
     },
     secondary: {
       main: '#0b0b0b',
-      dark: '#4e2d11',
+      dark: BROWN,
       //#endregion
     },
 
@@ -127,10 +130,9 @@ const theme = createTheme({
       fontSize: 'clamp(1.25rem, 5vw, 1.875rem)', // 20px → 30px
       fontFamily: 'var(--font-monotype)',
       lineHeight: 1.5,
-      letterSpacing: '0.05em',
       fontWeight: 200,
       textTransform: 'uppercase',
-      color: '#201111',
+      color: BROWN,
     },
     h6: {
       fontSize: 'clamp(1rem, 2.5vw, 1.125rem)', // 16px → 18px

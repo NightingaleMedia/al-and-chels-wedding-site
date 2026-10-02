@@ -1,4 +1,4 @@
-import { Divider, Typography } from '@mui/material'
+import { Box, Divider, Typography } from '@mui/material'
 import { connection } from 'next/server'
 import { pingBackend } from '@/serverActions/warmup/pingBackend'
 import GuestSearch from '@/components/forms/GuestSearch/GuestSearch'
@@ -9,7 +9,7 @@ export default async function RSVPPage() {
   await connection()
   await pingBackend()
   return (
-    <main className="mx-auto flex w-full max-w-xl flex-col gap-4 px-4 py-8">
+    <Box className="mx-auto flex w-full max-w-xl flex-col gap-4 px-4 py-8">
       {/* <Suspense fallback={null}>
         <BackendWarmup />
       </Suspense> */}
@@ -23,6 +23,6 @@ export default async function RSVPPage() {
         Search below by your first and last name for your party.
       </Typography>
       <GuestSearch />
-    </main>
+    </Box>
   )
 }

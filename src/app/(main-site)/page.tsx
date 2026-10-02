@@ -54,7 +54,7 @@ export default function Home() {
   ]
 
   return (
-    <main className="p-4">
+    <Box>
       <Box className="flex flex-col gap-4 overflow-hidden">
         <Typography
           variant="h1"
@@ -69,6 +69,6 @@ export default function Home() {
         </Box>
       </Box>
       <NavLinkList />
-    </main>
+    </Box>
   )
 }
