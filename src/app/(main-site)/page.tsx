@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 // See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
 // export const instant = false
 
-const STATIC_WIDTH = 350
+const STATIC_WIDTH = 380
 
 export default function Home() {
   const [count, setCount] = useState(0)
@@ -54,7 +54,7 @@ export default function Home() {
   ]
 
   return (
-    <Box>
+    <Box className="p-4">
       <Box className="flex flex-col gap-4 overflow-hidden">
         <Typography
           variant="h1"
@@ -64,9 +64,7 @@ export default function Home() {
         >
           Getting Married
         </Typography>
-        <Box className="max-h-[260px] mx-auto overflow-hidden">
-          {photos[count]}
-        </Box>
+        <Box className="h-[290px] mx-auto overflow-hidden">{photos[count]}</Box>
       </Box>
       <NavLinkList />
     </Box>

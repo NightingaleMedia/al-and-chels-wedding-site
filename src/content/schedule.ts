@@ -58,11 +58,11 @@ export const scheduleData: ScheduleDayBlockProps[] = [
     dayTitle: 'Sunday',
     title: 'Open House Hangs',
     location: {
-      name: "Al & Chelsea's Home In Detroit",
+      name: 'Chez Al & Chels, Detroit',
       url: 'https://share.google/PVvB7pvBH61TIHSrB',
     },
     blurb:
-      "Relax and unwind with friends and family at Al & Chelsea's home in Detroit.",
+      "Relax and unwind with friends and family at Al & Chelsea's home in Detroit. Open invite for all!",
     colorScheme: 'green',
     timeSlots: [
       {
@@ -76,11 +76,11 @@ export const scheduleData: ScheduleDayBlockProps[] = [
     dayTitle: 'Monday',
     title: 'Movement Festival Party',
     location: {
-      name: 'Movement Festival Venue',
+      name: 'Get Tickets',
       url: 'https://movementfestival.com/',
     },
     blurb:
-      'Join us for the annual Movement Festival party to keep the celebration going.',
+      "If you're not tired yet, join us for our annual pilgrimage to dance and be merry.",
     colorScheme: 'purple',
     timeSlots: [
       {

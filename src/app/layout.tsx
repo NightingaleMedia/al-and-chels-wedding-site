@@ -6,6 +6,7 @@ import 'reveal.js/theme/black.css'
 import localFont from 'next/font/local'
 import ThemeRegistry from '@/styles/ThemeRegistry'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
+import ProgressBarProvider from '@/context/progressBar/ProgressBar'
 
 // Display font - Elegant script for hero/titles
 const monotype = localFont({
@@ -62,7 +63,9 @@ export default function RootLayout({
     >
       <AppRouterCacheProvider>
         <ThemeRegistry>
-          <body className="min-h-full">{children}</body>
+          <body className="min-h-full">
+            <ProgressBarProvider>{children}</ProgressBarProvider>
+          </body>
         </ThemeRegistry>
       </AppRouterCacheProvider>
     </html>
