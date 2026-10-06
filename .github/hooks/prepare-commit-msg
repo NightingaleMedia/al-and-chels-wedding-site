@@ -1,0 +1,56 @@
+#!/bin/bash
+# prepare-commit-msg hook
+# Automatically generates a commit message summary using GitHub Copilot CLI with MCP
+
+# Only run for regular commits (not merge, squash, etc.)
+if [ "$2" != "" ]; then
+    exit 0
+fi
+
+COMMIT_MSG_FILE=$1
+
+# Check if gh copilot is available
+if ! command -v gh &> /dev/null; then
+    echo "Warning: gh CLI not found. Skipping AI commit message generation."
+    exit 0
+fi
+
+# Get the staged diff
+DIFF=$(git diff --cached)
+
+if [ -z "$DIFF" ]; then
+    echo "No staged changes found."
+    exit 0
+fi
+
+echo "Generating commit message with GitHub Copilot..."
+
+# Create a prompt for Copilot to analyze the diff and suggest a commit message
+PROMPT="Analyze this git diff and suggest a concise commit message following conventional commits format (type: description).
+
+Focus on:
+1. What changed (not how)
+2. Why it matters
+3. Use conventional commit prefixes (feat:, fix:, docs:, refactor:, test:, chore:)
+
+Keep it under 72 characters for the summary line.
+
+Diff:
+\`\`\`
+$DIFF
+\`\`\`
+
+Respond with ONLY the commit message, no explanations."
+
+# Use gh copilot to generate the message
+SUGGESTED_MSG=$(gh copilot -p "$PROMPT" 2>/dev/null | head -n 1)
+
+if [ -n "$SUGGESTED_MSG" ]; then
+    # Prepend the suggested message to the commit message file
+    echo "$SUGGESTED_MSG" > "$COMMIT_MSG_FILE.tmp"
+    echo "" >> "$COMMIT_MSG_FILE.tmp"
+    echo "# AI-generated commit message above. Edit as needed." >> "$COMMIT_MSG_FILE.tmp"
+    echo "# Original template:" >> "$COMMIT_MSG_FILE.tmp"
+    cat "$COMMIT_MSG_FILE" >> "$COMMIT_MSG_FILE.tmp"
+    mv "$COMMIT_MSG_FILE.tmp" "$COMMIT_MSG_FILE"
+fi
