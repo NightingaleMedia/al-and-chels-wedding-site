@@ -6,6 +6,7 @@
   --foreground: #171717;
   --secondary: #4e2d11;
   --secondary-light: rgb(127, 105, 87);
+  --orange: #eb8e03;
   --bg-card: #fff5eb;
   --header-height: 56px;
   --footer-height: 60px;
@@ -28,6 +29,7 @@
   --color-foreground: var(--foreground);
   --color-secondary-light: var(--secondary-light);
   --color-secondary: var(--secondary);
+  --color-orange: var(--orange);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --color-card: var(--bg-card);
@@ -78,6 +80,7 @@ td {
 }
 a {
   text-decoration: underline;
+  font-weight: 400;
 }
 @keyframes spin-slow {
   from {

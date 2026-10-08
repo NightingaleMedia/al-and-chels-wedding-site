@@ -6,6 +6,9 @@
 #
 # The env files are gitignored; each holds plain KEY=VALUE lines (no quotes,
 # no `export`). Everything in them is set as a Cloud Run runtime env var.
+npm run build
+
+/≥≤
 set -euo pipefail
 
 cd "$(dirname "$0")/.."

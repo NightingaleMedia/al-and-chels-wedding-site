@@ -1,18 +1,12 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { Archivo_Black, IBM_Plex_Mono, Roboto } from 'next/font/google'
 import '../styles/globals.css'
-import NavBar from '@/components/NavBar'
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import 'reveal.js/reveal.css'
 import 'reveal.js/theme/black.css'
-import { FEATURES } from '@/features'
-import ThemeRegistry from '@/styles/ThemeRegistry'
 import localFont from 'next/font/local'
-import { Box } from '@mui/material'
-import { Footer } from '@/components/footer/Footer'
-import { Suspense } from 'react'
-import { LoadingPageComponents } from '@/components/pageComponents/LoadingPageComponents'
+import ThemeRegistry from '@/styles/ThemeRegistry'
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
+import ProgressBarProvider from '@/context/progressBar/ProgressBar'
 
 // Display font - Elegant script for hero/titles
 const monotype = localFont({
@@ -65,19 +59,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${monotype.variable} ${archivoBlack.variable} ${body1.variable} ${secondary.variable} ${caption.variable} h-full`}
+      className={`${monotype.variable} ${archivoBlack.variable} ${body1.variable} ${secondary.variable} ${caption.variable}`}
     >
-      <body className="min-h-full flex flex-col">
-        <AppRouterCacheProvider>
-          <ThemeRegistry>
-            {FEATURES.navbar && <NavBar />}
-            <main className="min-h-full max-w-screen-md mt-[42px] flex-1">
-              <Box className="pt-6">{children}</Box>
-            </main>
-            <Footer />
-          </ThemeRegistry>
-        </AppRouterCacheProvider>
-      </body>
+      <AppRouterCacheProvider>
+        <ThemeRegistry>
+          <body className="min-h-full">
+            <ProgressBarProvider>{children}</ProgressBarProvider>
+          </body>
+        </ThemeRegistry>
+      </AppRouterCacheProvider>
     </html>
   )
 }

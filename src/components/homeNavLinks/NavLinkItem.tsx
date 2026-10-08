@@ -1,29 +1,34 @@
 import Link from 'next/link'
 import { NavLinkData } from '@/content/navLinks'
+import { Typography } from '@mui/material'
+import { OpenInNew } from '@mui/icons-material'
+import { grey } from '@mui/material/colors'
 
-export function NavLinkItem({ href, label, emoji }: NavLinkData) {
+export function NavLinkItem({ href, label, emoji, children }: NavLinkData) {
   return (
     <li>
       <Link
         href={href}
         style={{ textDecoration: 'none' }}
-        className="flex items-center gap-3 p-4 bg-secondary-light text-white hover:shadow-md hover:border-gray-300 transition-all"
+        className="flex items-center gap-3 p-3 border border-gray-400 hover:shadow-md hover:border-gray-300 transition-all"
       >
         <span className="text-xl">{emoji}</span>
-        <span className="flex-1 font-semibold text-md">{label}</span>
-        <svg
-          className="w-5 h-5"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-          />
-        </svg>
+        {children ? (
+          <span className="flex-1">{children}</span>
+        ) : (
+          <Typography
+            sx={(theme) => ({
+              fontWeight: 'medium',
+              color: theme.palette.primary.dark,
+            })}
+            variant="body2"
+            component="span"
+            className="flex-1"
+          >
+            {label}
+          </Typography>
+        )}
+        <OpenInNew fontSize="small" sx={{ color: grey[400] }} />
       </Link>
     </li>
   )

@@ -4,6 +4,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import AppleIcon from '@mui/icons-material/Apple'
 import {
   Button,
+  ButtonProps,
   Dialog,
   DialogActions,
   DialogContent,
@@ -14,7 +15,13 @@ import { useState } from 'react'
 import { ADD_TO_CALENDAR_URL, APPLE_CALENDAR_URL } from '@/constants'
 import { Google } from '@mui/icons-material'
 
-export default function CalendarButton() {
+export default function CalendarButton({
+  buttonProps,
+  labelOverride,
+}: {
+  buttonProps?: ButtonProps
+  labelOverride?: string
+}) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -24,8 +31,9 @@ export default function CalendarButton() {
         color="primary"
         startIcon={<CalendarMonthIcon />}
         onClick={() => setOpen(true)}
+        {...buttonProps}
       >
-        Add to Calendar
+        {labelOverride ?? 'Add to Calendar'}
       </Button>
       <Dialog
         open={open}
