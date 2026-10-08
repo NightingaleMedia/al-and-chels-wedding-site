@@ -1,14 +1,16 @@
-import { Suspense } from 'react'
-import { Divider, Typography } from '@mui/material'
+'use client'
+import { Box, Divider, Typography } from '@mui/material'
 import GuestSearch from '@/components/forms/GuestSearch/GuestSearch'
-import { BackendWarmup } from '@/components/warmup/BackendWarmup'
+import { LoadingPageComponents } from '@/components/pageComponents/LoadingPageComponents'
+import { usePingBackend } from '@/hooks/usePingBackend'
 
 export default function RSVPPage() {
-  return (
-    <main className="mx-auto flex w-full max-w-xl flex-col gap-4 px-4 py-8">
-      <Suspense fallback={null}>
-        <BackendWarmup />
-      </Suspense>
+  const { loading: backendReady } = usePingBackend(true)
+
+  return backendReady ? (
+    <LoadingPageComponents />
+  ) : (
+    <Box className="mx-auto flex w-full max-w-xl flex-col gap-4 px-4 py-8">
       <Typography variant="h1">RSVP</Typography>
       <Typography variant="body1">
         Open the RSVP link from your invitation to find your party.
@@ -19,6 +21,6 @@ export default function RSVPPage() {
         Search below by your first and last name for your party.
       </Typography>
       <GuestSearch />
-    </main>
+    </Box>
   )
 }

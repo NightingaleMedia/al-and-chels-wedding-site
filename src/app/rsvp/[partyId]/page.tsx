@@ -1,47 +1,43 @@
-import { notFound } from 'next/navigation'
-import { Box, Button, Typography } from '@mui/material'
+'use client'
 import RSVPForm from '@/components/forms/RSVPForm/RSVPForm'
+import { LoadingPageComponents } from '@/components/pageComponents/LoadingPageComponents'
 import { getPartyByPartyId } from '@/serverActions/rsvp/getPartyByPartyId'
 import type { Party } from '@/serverActions/rsvp/weddingBackend.schemas'
-import { ErrorPanel } from '@/components/forms/RSVPForm/errorPanel'
+import { Box } from '@mui/material'
+import { useRouter } from 'next/navigation'
+import { use, useEffect, useState } from 'react'
 
-// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
-// Remove this opt-out after verifying the segment passes validation without it.
-// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false
+const initialPartyState = { loading: true, error: false, party: undefined }
 
-export default async function PartyRSVPPage(
-  props: PageProps<'/rsvp/[partyId]'>,
-) {
-  const { partyId } = await props.params
+export default function PartyRSVPPage(props: PageProps<'/rsvp/[partyId]'>) {
+  const { partyId } = use(props.params)
+  const router = useRouter()
 
-  let party: Party
-  try {
-    party = await getPartyByPartyId(partyId)
-  } catch {
-    return (
-      <main>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            height: 'var(--content-height)',
-          }}
-        >
-          <ErrorPanel>
-            <Button variant="contained" href="/rsvp">
-              Search for your RSVP
-            </Button>
-          </ErrorPanel>
-        </Box>
-      </main>
-    )
-  }
+  const [partyState, setPartyState] = useState<{
+    loading: boolean
+    error: boolean
+    party?: Party
+  }>(initialPartyState)
 
-  return (
-    <main className="mx-auto flex w-full max-w-xl flex-col px-4 pb-8">
-      <RSVPForm party={party} />
-    </main>
+  useEffect(() => {
+    getPartyByPartyId(partyId)
+      .then((party) => setPartyState({ loading: false, error: false, party }))
+      .catch(() => {
+        setPartyState({ loading: false, error: true, party: undefined })
+      })
+  }, [partyId])
+
+  useEffect(() => {
+    if (partyState.error) {
+      router.replace('/rsvp')
+    }
+  }, [partyState.error, router])
+
+  return partyState.loading || !partyState.party ? (
+    <LoadingPageComponents />
+  ) : (
+    <Box className="mx-auto flex w-full max-w-xl flex-col px-4 pb-8">
+      <RSVPForm party={partyState.party} />
+    </Box>
   )
 }
