@@ -25,13 +25,13 @@ export const metadata: Metadata = {
   },
 }
 
-const WIDTH = 360
+const WIDTH = 430
 
 export default function SaveTheDatePage() {
   return (
-    <div className="w-screen flex flex-col items-center py-8">
+    <div className="w-screen flex flex-col items-center py-8 px-4">
       <div
-        className={`grid lg:grid-cols-[calc(${WIDTH}px_*_0.16)_calc(${WIDTH}px_*_0.84)] relative grid-cols-[9fr_50fr] w-[360px] overflow-hidden`}
+        className={`grid lg:grid-cols-[calc(${WIDTH}px_*_0.16)_calc(${WIDTH}px_*_0.84)] relative grid-cols-[9fr_50fr] max-w-[430px] w-full overflow-hidden`}
       >
         <div className="relative h-full flex items-center justify-center overflow-hidden border border-black -mr-[2px]">
           <div className="rotate-[-90deg] whitespace-nowrap ml-[6px]">
@@ -47,10 +47,10 @@ export default function SaveTheDatePage() {
         <div className="flex flex-col items-center justify-center w-full">
           <div className="">
             <Image
-              src="/img/save-the-date-3.png"
+              src="/img/save-the-date-4.JPG"
               alt="Save The Date"
               width={WIDTH * 0.842}
-              height={400}
+              height={900}
               style={{
                 opacity: '0.85',
                 // maxWidth: '68vw',
