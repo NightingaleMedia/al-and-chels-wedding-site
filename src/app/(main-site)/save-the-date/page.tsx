@@ -33,8 +33,8 @@ export default function SaveTheDatePage() {
       <div
         className={`grid lg:grid-cols-[calc(${WIDTH}px_*_0.16)_calc(${WIDTH}px_*_0.84)] relative grid-cols-[9fr_50fr] max-w-[430px] w-full overflow-hidden`}
       >
-        <div className="relative h-full flex items-center justify-center overflow-hidden border border-black">
-          <div className="rotate-[-90deg] whitespace-nowrap">
+        <div className="relative h-full flex items-center justify-center overflow-hidden border border-black -mr-[2px]">
+          <div className="rotate-[-90deg] whitespace-nowrap ml-[6px]">
             <Typography
               variant="h1"
               style={{ color: '#4e2d11' }}

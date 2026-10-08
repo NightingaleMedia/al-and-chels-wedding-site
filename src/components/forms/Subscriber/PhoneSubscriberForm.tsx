@@ -124,11 +124,12 @@ export const PhoneSubscriberForm = () => {
             }}
             label="I agree to receive text messages from Al and Chelsea for wedding updates. Msg & data rates may apply."
           />
-          <Typography variant="body2" sx={{ mt: 1, fontSize: '10px' }}>
-            * Reply STOP to unsubscribe. Read our{' '}
+          <Typography variant="body2" sx={{ mt: 1, fontSize: '8px' }}>
+            * Reply STOP to unsubscribe. HELP for help. Msg frequency varies;
+            fewer than 10 messages total. Read our{' '}
             <Link href="/privacy-policy">Privacy Policy</Link> or{' '}
-            <Link href="/terms-of-service">Terms of Service</Link> for more
-            information.
+            <Link href="/terms-and-conditions">Terms and Conditions</Link> for
+            more information.
           </Typography>
           <Button
             type="submit"

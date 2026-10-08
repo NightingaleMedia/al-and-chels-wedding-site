@@ -17,6 +17,7 @@ export interface ScheduleDayBlockProps {
   }
   timeSlots: TimeSlot[]
   colorScheme?: 'pink' | 'blue' | 'purple' | 'green'
+  blurb: string
 }
 
 export function ScheduleDayBlock({
@@ -26,9 +27,10 @@ export function ScheduleDayBlock({
   location,
   timeSlots,
   colorScheme = 'pink',
+  blurb,
 }: ScheduleDayBlockProps) {
   return (
-    <Box component={'section'} sx={{ mb: 20 }}>
+    <Box component={'section'} sx={{ mb: 4, maxWidth: '600px', mx: 'auto' }}>
       {/* Day Header - Mobile First */}
       <div className={`bg-gradient-to-r  p-4 border-1  mb-4`}>
         {/* Day Title and Emoji */}
@@ -62,6 +64,12 @@ export function ScheduleDayBlock({
             <NearMe />
           </IconButton>
         </Link>
+        <Typography
+          variant="body2"
+          sx={{ fontSize: '0.75rem', textAlign: 'center', my: 2 }}
+        >
+          {blurb}
+        </Typography>
       </div>
 
       {/* Time Slots - Mobile Optimized */}
@@ -71,8 +79,12 @@ export function ScheduleDayBlock({
             key={index}
             className="p-4 border  mx-auto border-1 flex justify-between"
           >
-            <Typography variant="h6">{slot.title}</Typography>
-            <Typography variant="body1">{slot.time}</Typography>
+            <Typography variant="h6" sx={{ fontSize: '0.75rem' }}>
+              {slot.title}
+            </Typography>
+            <Typography variant="body1" sx={{ fontSize: '0.75rem' }}>
+              {slot.time}
+            </Typography>
           </div>
         ))}
       </div>
