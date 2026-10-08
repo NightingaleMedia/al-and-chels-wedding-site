@@ -23,7 +23,7 @@ const phoneValidationSchema = z.object({
     .string()
     .min(1, 'Phone number is required')
     .regex(/^\+?[0-9\s\-()]{10,}$/, 'Enter a valid phone number'),
-  consent: z.boolean().refine((val) => val, 'You must agree to continue'),
+  consent: z.boolean().optional(),
 })
 
 export const PhoneSubscriberForm = () => {
@@ -36,9 +36,6 @@ export const PhoneSubscriberForm = () => {
       consent: false,
     },
     validate: (values) => {
-      if (!values.consent) {
-        return { consent: 'You must agree to continue' }
-      }
       const result = phoneValidationSchema.safeParse(values)
       if (!result.success) {
         const errors: Record<string, string> = {}
@@ -57,6 +54,7 @@ export const PhoneSubscriberForm = () => {
 
       const result = await subscribeToUpdates({
         phoneNumber: values.phoneNumber,
+        consent: values.consent,
       })
 
       if (result.success) {
@@ -138,7 +136,6 @@ export const PhoneSubscriberForm = () => {
             disabled={
               formik.isSubmitting ||
               !formik.values.phoneNumber ||
-              !formik.values.consent ||
               !formik.isValid
             }
           >
