@@ -18,6 +18,8 @@
     "@revealjs/react": "^0.2.2",
     "@types/nprogress": "^0.2.3",
     "cloudinary": "^2.11.0",
+    "dayjs": "^1.11.23",
+    "firebase-admin": "^14.5.0",
     "formik": "^2.4.9",
     "google-auth-library": "^11.0.2",
     "gray-matter": "^4.0.3",
