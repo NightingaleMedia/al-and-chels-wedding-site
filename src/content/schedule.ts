@@ -10,15 +10,17 @@ export const scheduleData: ScheduleDayBlockProps[] = [
       url: 'https://maps.app.goo.gl/R7PhYM9DbYUN9sRs9',
     },
     blurb:
-      "Kick off the wedding festivities with a casual welcome event at Al's parents home.",
+      "Kick off the festivities with a special welcome evening at Al's parents home.",
     timeSlots: [
       {
         title: 'Welcome Event',
         time: '5:00 PM - 8:00 PM',
+        note: 'Due to limited capacity at the house, this event is invite only, we will reach out to you directly.',
       },
       {
         title: 'Downtown Party',
         time: '9:00 PM - 12:00 PM',
+        note: 'Afterwards in Downtown Toledo, location to be announced, open invite to all!',
       },
     ],
     colorScheme: 'blue',
@@ -50,6 +52,10 @@ export const scheduleData: ScheduleDayBlockProps[] = [
         title: 'Dancing & Reception',
         time: '8:00 PM - 11:00 PM',
       },
+      {
+        title: 'General Debauchery',
+        time: '11:00 PM - Late',
+      },
     ],
     colorScheme: 'pink',
   },
@@ -62,12 +68,13 @@ export const scheduleData: ScheduleDayBlockProps[] = [
       url: 'https://share.google/PVvB7pvBH61TIHSrB',
     },
     blurb:
-      "Relax and unwind with friends and family at Al & Chelsea's home in Detroit. Open invite for all!",
+      "Relax and unwind with friends and family at Al & Chelsea's home in Detroit.",
     colorScheme: 'green',
     timeSlots: [
       {
         title: 'Open House, Open Decks, Open Grill',
         time: '3:00 PM - Whenever',
+        note: ' Open invite for all! BYOB',
       },
     ],
   },

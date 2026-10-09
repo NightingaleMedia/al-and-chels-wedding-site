@@ -1,10 +1,11 @@
-import { NavigateNextOutlined, NearMe } from '@mui/icons-material'
+import { NearMe } from '@mui/icons-material'
 import { Box, IconButton, Typography } from '@mui/material'
 import Link from 'next/link'
 
 export interface TimeSlot {
   title: string
   time: string
+  note?: string
 }
 
 export interface ScheduleDayBlockProps {
@@ -77,7 +78,7 @@ export function ScheduleDayBlock({
         {timeSlots.map((slot, index) => (
           <div
             key={index}
-            className="p-4 border  mx-auto border-1 flex justify-between"
+            className="p-4 border mx-auto border-1 flex flex-wrap justify-between"
           >
             <Typography variant="h6" sx={{ fontSize: '0.75rem' }}>
               {slot.title}
@@ -85,6 +86,20 @@ export function ScheduleDayBlock({
             <Typography variant="body1" sx={{ fontSize: '0.75rem' }}>
               {slot.time}
             </Typography>
+            {slot.note && (
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '0.65rem',
+                  color: 'gray',
+                  flexGrow: 1,
+                  flexBasis: '100%',
+                  mt: 2,
+                }}
+              >
+                {slot.note}
+              </Typography>
+            )}
           </div>
         ))}
       </div>
