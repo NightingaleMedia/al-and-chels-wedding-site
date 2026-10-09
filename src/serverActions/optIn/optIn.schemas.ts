@@ -4,6 +4,7 @@ import { z } from 'zod'
 export const subscribeRequestSchema = z.union([
   z.object({
     phoneNumber: z.string().min(1, 'Phone number is required'),
+    consent: z.boolean(),
   }),
   z.object({
     email: z.string().min(1, 'Email is required').email('Enter a valid email'),
