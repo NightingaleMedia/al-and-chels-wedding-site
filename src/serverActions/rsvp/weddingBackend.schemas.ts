@@ -63,6 +63,7 @@ export const submitRsvpRequestSchema = z.object({
   rsvps: z
     .array(
       z.object({
+        rowNumber: z.number().min(1),
         guestId: z.string().min(1),
         isAttending: z.boolean(),
         foodPref: z.string().max(64).optional(),

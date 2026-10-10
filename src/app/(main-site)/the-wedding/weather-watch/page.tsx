@@ -1,3 +1,5 @@
+import WeatherWatchPageContent from '@/components/pageComponents/WeatherWatchPageContent'
+
 export default function WeatherWatchPage() {
-  return <div>Weather Watch Page</div>
+  return <WeatherWatchPageContent />
 }
