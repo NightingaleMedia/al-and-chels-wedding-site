@@ -11,9 +11,9 @@ export default function RSVPPage() {
     <LoadingPageComponents />
   ) : (
     <Box className="mx-auto flex w-full max-w-xl flex-col gap-4 px-4 py-8">
-      <Typography variant="h1">RSVP</Typography>
+      <Typography variant="special">rsvp</Typography>
       <Typography variant="body1">
-        Open the RSVP link from your invitation to find your party.
+        Open the RSVP QR code from your invitation to find your party.
       </Typography>
       <Divider />
       <Typography variant="h1">OR</Typography>

@@ -14,10 +14,10 @@ import {
 } from '@mui/material';
 import { LockOpen as LockIcon } from '@mui/icons-material';
 import { toast } from 'react-toastify';
-import { verifyAdminPin } from '@/serverActions/photos/verifyAdminPin';
+import { mintAdminToken } from '@/serverActions/admin/adminAuth';
 
 interface PinAuthProps {
-  onAuthenticated: () => void;
+  onAuthenticated: (token: string) => void;
 }
 
 export default function PinAuth({ onAuthenticated }: PinAuthProps) {
@@ -35,13 +35,13 @@ export default function PinAuth({ onAuthenticated }: PinAuthProps) {
     setLoading(true);
 
     try {
-      const isValid = await verifyAdminPin(pin);
+      const result = await mintAdminToken(pin);
 
-      if (isValid) {
+      if (result.success && result.token) {
         toast.success('Access granted!');
-        onAuthenticated();
+        onAuthenticated(result.token);
       } else {
-        toast.error('Incorrect PIN. Please try again.');
+        toast.error(result.error || 'Incorrect PIN. Please try again.');
         setPin('');
       }
     } catch (error) {
