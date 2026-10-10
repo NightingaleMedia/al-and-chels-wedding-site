@@ -23,14 +23,16 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Filler
+  Filler,
 )
 
 interface HistoricalTempChartProps {
   years: HistoricalYearData[]
 }
 
-export default function HistoricalTempChart({ years }: HistoricalTempChartProps) {
+export default function HistoricalTempChart({
+  years,
+}: HistoricalTempChartProps) {
   const labels = years.map((y) => y.year.toString())
 
   const data = {
@@ -44,26 +46,26 @@ export default function HistoricalTempChart({ years }: HistoricalTempChartProps)
         fill: false,
         tension: 0.3,
       },
-      {
-        label: 'Daytime Low',
-        data: years.map((y) => y.daytime.tempLow),
-        borderColor: '#f97316',
-        backgroundColor: 'rgba(249, 115, 22, 0.1)',
-        fill: false,
-        tension: 0.3,
-      },
-      {
-        label: 'Nighttime High',
-        data: years.map((y) => y.nighttime.tempHigh),
-        borderColor: '#3b82f6',
-        backgroundColor: 'rgba(59, 130, 246, 0.1)',
-        fill: false,
-        tension: 0.3,
-      },
+      // {
+      //   label: 'Daytime Low',
+      //   data: years.map((y) => y.daytime.tempLow),
+      //   borderColor: '#f97316',
+      //   backgroundColor: 'rgba(249, 115, 22, 0.1)',
+      //   fill: false,
+      //   tension: 0.3,
+      // },
+      // {
+      //   label: 'Nighttime High',
+      //   data: years.map((y) => y.nighttime.tempHigh),
+      //   borderColor: '#3b82f6',
+      //   backgroundColor: 'rgba(59, 130, 246, 0.1)',
+      //   fill: false,
+      //   tension: 0.3,
+      // },
       {
         label: 'Nighttime Low',
         data: years.map((y) => y.nighttime.tempLow),
-        borderColor: '#6366f1',
+        borderColor: '#3632a9',
         backgroundColor: 'rgba(99, 102, 241, 0.1)',
         fill: false,
         tension: 0.3,
@@ -84,7 +86,10 @@ export default function HistoricalTempChart({ years }: HistoricalTempChartProps)
       },
       tooltip: {
         callbacks: {
-          label: (context: { dataset: { label?: string }; parsed: { y: number | null } }) => {
+          label: (context: {
+            dataset: { label?: string }
+            parsed: { y: number | null }
+          }) => {
             return `${context.dataset.label}: ${context.parsed.y ?? 0}°F`
           },
         },

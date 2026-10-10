@@ -1,15 +1,22 @@
-// Swanton, Ohio coordinates
-export const SWANTON_COORDS = {
-  latitude: 41.5889,
-  longitude: -83.8916,
+// Wedding location coordinates from env
+export const WEDDING_COORDS = {
+  latitude: parseFloat(process.env.NEXT_PUBLIC_WEDDING_LATITUDE || '41.5889'),
+  longitude: parseFloat(process.env.NEXT_PUBLIC_WEDDING_LONGITUDE || '-83.8916'),
 } as const
 
-// Wedding date range (May 27-31)
+// Wedding date from env (format: YYYY-MM-DD)
+const weddingDateStr = process.env.NEXT_PUBLIC_WEDDING_DATE || '2025-05-29'
+const [year, month, day] = weddingDateStr.split('-').map(Number)
+
+export const WEDDING_DATE = new Date(weddingDateStr)
+export const WEDDING_DATE_STR = weddingDateStr
+
+// Wedding date range (±2 days for historical data)
 export const WEDDING_DATE_RANGE = {
-  month: 5,
-  startDay: 27,
-  endDay: 31,
-  targetDay: 29, // The actual wedding day
+  month,
+  startDay: day - 2,
+  endDay: day + 2,
+  targetDay: day,
 } as const
 
 // Historical weather data for a single year

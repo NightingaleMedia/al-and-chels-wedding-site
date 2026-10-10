@@ -55,26 +55,29 @@ export default function Home() {
 
   return (
     <Box className="p-4">
-      <Box className="flex flex-col gap-4 ">
-        <Typography
-          variant="special"
-          align="center"
-          // sx={{ fontSize: '8rem' }}
-          className="lg:block"
-        >
-          getting
-        </Typography>
+      <Box className="flex flex-col gap-4 my-4">
+        <Box sx={{ overflow: 'hidden' }}>
+          <Typography
+            variant="h1"
+            align="center"
+            sx={{ textTransform: 'lowercase' }}
+            className="lg:block"
+          >
+            we are getting
+          </Typography>
+          <Typography
+            variant="special"
+            align="center"
+            sx={{ fontSize: '4rem', mt: '-40px' }}
+            className="lg:block"
+          >
+            married
+          </Typography>
+        </Box>
         <Box className="h-[290px] mx-auto overflow-hidden">{photos[count]}</Box>
-        <Typography
-          variant="special"
-          align="center"
-          // sx={{ fontSize: '8rem' }}
-          className="lg:block"
-        >
-          &quot;married&quot;
-        </Typography>
       </Box>
       <NavLinkList />
+      <Box sx={{ height: '50px' }}></Box>
     </Box>
   )
 }

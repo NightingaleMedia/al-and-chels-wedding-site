@@ -2,7 +2,7 @@
 
 import { unstable_cache } from 'next/cache'
 import {
-  SWANTON_COORDS,
+  WEDDING_COORDS,
   WEDDING_DATE_RANGE,
   HistoricalYearData,
   HistoricalWeatherStats,
@@ -67,8 +67,8 @@ async function fetchYearData(year: number): Promise<HistoricalYearData | null> {
   const endDate = `${year}-${String(month).padStart(2, '0')}-${String(endDay).padStart(2, '0')}`
 
   const url = new URL('https://archive-api.open-meteo.com/v1/archive')
-  url.searchParams.set('latitude', String(SWANTON_COORDS.latitude))
-  url.searchParams.set('longitude', String(SWANTON_COORDS.longitude))
+  url.searchParams.set('latitude', String(WEDDING_COORDS.latitude))
+  url.searchParams.set('longitude', String(WEDDING_COORDS.longitude))
   url.searchParams.set('start_date', startDate)
   url.searchParams.set('end_date', endDate)
   url.searchParams.set('daily', 'temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_hours,sunset,weathercode')

@@ -1,15 +1,14 @@
 'use server'
 
 import {
-  SWANTON_COORDS,
+  WEDDING_COORDS,
+  WEDDING_DATE,
+  WEDDING_DATE_STR,
   ForecastDay,
   WeatherForecast,
   ForecastStatus,
   OpenMeteoForecastResponse,
 } from './weather.schemas'
-
-// Wedding date - May 29, 2025
-const WEDDING_DATE = new Date('2025-05-29')
 
 // Weather code to description and icon mapping
 const weatherCodeMap: Record<number, { description: string; icon: string }> = {
@@ -93,7 +92,7 @@ function getPrecipitationType(code: number): 'none' | 'rain' | 'snow' | 'mixed' 
 
 // Check if a date matches the wedding date
 function isWeddingDay(dateString: string): boolean {
-  return dateString === '2025-05-29'
+  return dateString === WEDDING_DATE_STR
 }
 
 export async function getForecastStatus(): Promise<ForecastStatus> {
@@ -127,8 +126,8 @@ export async function getForecastStatus(): Promise<ForecastStatus> {
 
 export async function getWeatherForecast(): Promise<WeatherForecast> {
   const url = new URL('https://api.open-meteo.com/v1/forecast')
-  url.searchParams.set('latitude', String(SWANTON_COORDS.latitude))
-  url.searchParams.set('longitude', String(SWANTON_COORDS.longitude))
+  url.searchParams.set('latitude', String(WEDDING_COORDS.latitude))
+  url.searchParams.set('longitude', String(WEDDING_COORDS.longitude))
   url.searchParams.set('daily', [
     'temperature_2m_max',
     'temperature_2m_min',
