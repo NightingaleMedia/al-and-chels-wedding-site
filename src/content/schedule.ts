@@ -37,6 +37,11 @@ export const scheduleData: ScheduleDayBlockProps[] = [
       'Celebrate the big day with ceremony, cocktail hour, dinner, and dancing at the wedding venue.',
     timeSlots: [
       {
+        title: 'Guest Arrival',
+        time: '3:00 PM - 4:00 PM',
+        note: 'A bus will take guests from the hotel to the venue',
+      },
+      {
         title: 'Ceremony',
         time: '4:00 PM - 4:40 PM',
       },
@@ -50,11 +55,12 @@ export const scheduleData: ScheduleDayBlockProps[] = [
       },
       {
         title: 'Dancing & Reception',
-        time: '8:00 PM - 11:00 PM',
+        time: '8:00 PM - 10:00 PM',
       },
       {
         title: 'General Debauchery',
-        time: '11:00 PM - Late',
+        time: '10:00 PM - Late',
+        note: 'The bus runs late for those that would like to not drive themselves.',
       },
     ],
     colorScheme: 'pink',
@@ -72,7 +78,7 @@ export const scheduleData: ScheduleDayBlockProps[] = [
     colorScheme: 'green',
     timeSlots: [
       {
-        title: 'Open House, Open Decks, Open Grill',
+        title: 'Open House',
         time: '3:00 PM - Whenever',
         note: ' Open invite for all! BYOB',
       },

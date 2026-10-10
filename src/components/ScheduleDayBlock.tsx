@@ -33,7 +33,7 @@ export function ScheduleDayBlock({
   return (
     <Box component={'section'} sx={{ mb: 4, maxWidth: '600px', mx: 'auto' }}>
       {/* Day Header - Mobile First */}
-      <div className={`bg-gradient-to-r  p-4 border-1  mb-4`}>
+      <div className={`bg-card  p-4 border-1  mb-4`}>
         {/* Day Title and Emoji */}
         <div className="text-center mb-3">
           {emoji && (
@@ -67,7 +67,13 @@ export function ScheduleDayBlock({
         </Link>
         <Typography
           variant="body2"
-          sx={{ fontSize: '0.75rem', textAlign: 'center', my: 2 }}
+          sx={{
+            fontSize: '0.75rem',
+            textAlign: 'center',
+            my: 2,
+            maxWidth: '400px',
+            mx: 'auto',
+          }}
         >
           {blurb}
         </Typography>
@@ -78,7 +84,7 @@ export function ScheduleDayBlock({
         {timeSlots.map((slot, index) => (
           <div
             key={index}
-            className="p-4 border mx-auto border-1 flex flex-wrap justify-between"
+            className="p-4 border mx-auto border-1 flex flex-wrap justify-between bg-card"
           >
             <Typography variant="h6" sx={{ fontSize: '0.75rem' }}>
               {slot.title}

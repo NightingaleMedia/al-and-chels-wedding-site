@@ -5,19 +5,21 @@ slug: getting-there
 
 # Getting There
 
+- 📍 [Hotel Address](https://maps.app.goo.gl/vACf2KLQEQyiBTy38)
+- 📍 [Wedding Venue Address](https://maps.app.goo.gl/BS9LbrDfN53yx25Z9)
+
 We can't wait to celebrate with you! The wedding is in **Swanton, Ohio**, just west of Toledo, and our hotel block is in **downtown Toledo**.
 
-This page covers getting _to the Toledo area_. Once you're here, we'll take it from there.
+- **Looking for day-of travel?**
+  Shuttle times and directions are on the [Day-Of Travel](/day-of-travel) page.
 
-> **Looking for day-of travel?** Shuttle times and directions to the ceremony are on the [Day-Of Travel](/day-of-travel) page.
->
-> **Need a place to stay?** Hotel block details and booking links are on the [Accommodations](/accommodations) page.
+- **Need a place to stay?** Hotel details and links are on the [Accommodations](/accommodations) page.
 
-<!-- IMAGE: Map of the region showing DTW, Toledo Express, downtown Toledo, and the venue in Swanton, with drive times -->
+![Map showing how to get to the wedding](/img/getting-there/getting-there-map.png)
 
 ---
 
-# ✈️ Flying In
+## ✈️ Flying In
 
 ### Detroit Metropolitan Airport (DTW)
 
@@ -30,7 +32,7 @@ Most guests will fly into Detroit. It's about **45–60 minutes by car** from do
 
 ---
 
-# 🚐 Detroit ➡ Toledo
+## 🚐 Detroit ➡ Toledo
 
 We're working hard to make sure **nobody needs to drive to or from the wedding itself**, so you may not need a car at all. Here are some other options for getting from the airport to Toledo:
 

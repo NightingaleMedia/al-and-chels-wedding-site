@@ -43,6 +43,7 @@ export const menuNavLinks: NavLink[] = [
       { label: '📖 Our Story', href: '/about-us' },
       { label: '📝 Add To The Story', href: '/about-us/add-your-story' },
       { label: '📸 Add Your Pictures', href: '/about-us/add-your-pictures' },
+      { label: '🎁 Registry', href: '/registry' },
     ],
   },
   {
