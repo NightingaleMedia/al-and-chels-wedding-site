@@ -75,14 +75,6 @@ export default function Home() {
           </Typography>
         </Box>
         <Box className="h-[290px] mx-auto overflow-hidden">{photos[count]}</Box>
-        <Typography
-          variant="special"
-          align="center"
-          // sx={{ fontSize: '8rem' }}
-          className="lg:block"
-        >
-          &quot;married&quot;
-        </Typography>
       </Box>
       <NavLinkList />
       <Box sx={{ height: '50px' }}></Box>
