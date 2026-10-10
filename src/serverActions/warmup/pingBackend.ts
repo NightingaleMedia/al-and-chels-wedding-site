@@ -9,9 +9,11 @@ export async function pingBackend(): Promise<void> {
   const res = await backendClient('/warmup', {
     method: 'POST',
     body: JSON.stringify(body),
+  }).catch((error) => {
+    console.error(`Warmup request failed: ${error}`)
   })
 
-  if (!res.ok) {
-    throw new Error(`Warmup failed: ${res.status} ${res.statusText}`)
+  if (res && !res.ok) {
+    console.error(`Warmup failed: ${res.status} ${res.statusText}`)
   }
 }

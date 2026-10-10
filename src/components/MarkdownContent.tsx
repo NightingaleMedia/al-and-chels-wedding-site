@@ -51,6 +51,7 @@ export async function MarkdownContent({ file }: { file: string }) {
         ),
         a: ({ href = '', children }) => (
           <Link
+            className="underline text-lg font-bold"
             href={href}
             {...(href.startsWith('http') && {
               target: '_blank',
@@ -72,6 +73,9 @@ export async function MarkdownContent({ file }: { file: string }) {
         ),
         hr: () => <Divider sx={{ my: 6 }} />,
         br: () => <br />,
+        img: ({ src, alt }) => (
+          <img src={src} alt={alt} className="my-4 max-w-full" />
+        ),
       }}
     >
       {content}

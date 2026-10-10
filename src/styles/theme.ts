@@ -3,6 +3,7 @@ import { grey } from '@mui/material/colors'
 
 const ORANGE = '#f69d0f'
 const BROWN = '#4e2d11'
+const DARK_BROWN = '#220f09'
 const RED = '#ff1601'
 const theme = createTheme({
   breakpoints: {
@@ -21,7 +22,7 @@ const theme = createTheme({
       contrastText: '#ffffff',
     },
     secondary: {
-      main: '#0b0b0b',
+      main: DARK_BROWN,
       dark: BROWN,
       //#endregion
     },
@@ -125,6 +126,7 @@ const theme = createTheme({
       fontFamily: 'var(--font-monotype)',
       lineHeight: 1.3,
       fontWeight: 400,
+      color: DARK_BROWN,
     },
     h3: {
       fontSize: 'clamp(1.25rem, 5vw, 1.875rem)', // 20px → 30px
