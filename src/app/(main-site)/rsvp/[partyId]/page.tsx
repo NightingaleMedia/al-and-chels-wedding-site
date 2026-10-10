@@ -36,7 +36,7 @@ export default function PartyRSVPPage(props: PageProps<'/rsvp/[partyId]'>) {
   return partyState.loading || !partyState.party ? (
     <LoadingPageComponents />
   ) : (
-    <Box className="mx-auto flex w-full max-w-xl flex-col px-4 pb-8">
+    <Box className="mx-auto w-full max-w-3xl p-4 pb-8">
       <RSVPForm party={partyState.party} />
     </Box>
   )

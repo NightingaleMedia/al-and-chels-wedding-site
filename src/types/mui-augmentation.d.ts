@@ -6,4 +6,20 @@ declare module '@mui/material/Paper' {
   }
 }
 
+declare module '@mui/material/styles' {
+  interface TypographyVariants {
+    special: React.CSSProperties
+  }
+
+  interface TypographyVariantsOptions {
+    special?: React.CSSProperties
+  }
+}
+
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    special: true
+  }
+}
+
 export {}

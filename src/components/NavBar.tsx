@@ -22,44 +22,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import ExpandLess from '@mui/icons-material/ExpandLess'
 import ExpandMore from '@mui/icons-material/ExpandMore'
 import Image from 'next/image'
-
-type NavLink = {
-  label: string
-  href: string
-  children?: { label: string; href: string }[]
-}
-
-const navLinks: NavLink[] = [
-  {
-    label: 'About Us',
-    href: '/about-us',
-    children: [
-      { label: '📖 Our Story', href: '/about-us' },
-      { label: '📝 Add To The Story', href: '/about-us/add-your-story' },
-      { label: '📸 Add Your Pictures', href: '/about-us/add-your-pictures' },
-    ],
-  },
-  {
-    label: 'Travel',
-    href: '/travel',
-    children: [
-      { label: '🗺️ Getting There', href: '/travel/getting-there' },
-      { label: '🏨 Accommodations', href: '/travel/accommodations' },
-      { label: '🧳 Day of Travel', href: '/travel/day-of-travel' },
-    ],
-  },
-  {
-    label: 'The Wedding',
-    href: '/the-wedding',
-    children: [
-      { label: '🗓️ Schedule', href: '/the-wedding/schedule' },
-      { label: '📍 Location', href: '/the-wedding/location' },
-      { label: '💌 RSVP', href: '/rsvp' },
-      { label: '💬 Send Me Updates', href: '/send-me-updates' },
-    ],
-  },
-  { label: 'FAQs', href: '/faqs' },
-]
+import { menuNavLinks, NavLink } from '@/content/navLinks'
 
 function DesktopNavItem({ link }: { link: NavLink }) {
   const [anchor, setAnchor] = useState<null | HTMLElement>(null)
@@ -162,7 +125,11 @@ function MobileNavItem({
   )
 }
 
-export default function NavBar() {
+export default function NavBar({
+  linksToUse = menuNavLinks,
+}: {
+  linksToUse?: NavLink[]
+}) {
   const [drawerOpen, setDrawerOpen] = useState(false)
 
   return (
@@ -186,7 +153,7 @@ export default function NavBar() {
 
         {/* Desktop nav */}
         <nav className="hidden lg:flex items-center gap-1">
-          {navLinks.map((nl, idx) => (
+          {linksToUse.map((nl, idx) => (
             <DesktopNavItem key={`${nl.href}-${idx}`} link={nl} />
           ))}
         </nav>
@@ -228,14 +195,14 @@ export default function NavBar() {
             </div>
           </ListItem>
           <List>
-            {navLinks.map((nl, i) => (
+            {linksToUse.map((nl, i) => (
               <Fragment key={`${nl.href}-${i}`}>
                 <MobileNavItem
                   key={`${nl.href}-${i}`}
                   link={nl}
                   onClose={() => setDrawerOpen(false)}
                 />
-                {i < navLinks.length - 1 && (
+                {i < linksToUse.length - 1 && (
                   <Divider key={`d-${nl.href}-${i}`} />
                 )}
               </Fragment>

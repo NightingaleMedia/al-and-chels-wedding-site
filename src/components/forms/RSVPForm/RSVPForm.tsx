@@ -17,13 +17,17 @@ function Steps() {
 
   return (
     <Box>
-      <Typography variant="h2" sx={{ lineHeight: 0.85, my: 4 }}>
-        {formik.status === 'success'
-          ? `${party.partyName} you're all set!`
-          : `check your people in, ${party.members[0]['First Name'].toLowerCase()}...`}
-      </Typography>
-
-      <Paper variant="form" className="flex flex-col gap-6 outline-1 p-2">
+      <Box sx={{ mt: 3, mb: 5, mx: 'auto' }}>
+        <Typography variant="special" sx={{ px: 2, textAlign: 'center' }}>
+          {formik.status === 'success'
+            ? `${party.partyName} you're all set!`
+            : `respondez s'il vous plaît`}
+        </Typography>
+      </Box>
+      <Paper
+        variant="form"
+        className="flex flex-col gap-6 outline-1 p-2 max-w-xl m-auto"
+      >
         <Box>
           <Typography variant="h1" sx={{ lineHeight: 0.85, mt: 2 }}>
             {party.partyName}
