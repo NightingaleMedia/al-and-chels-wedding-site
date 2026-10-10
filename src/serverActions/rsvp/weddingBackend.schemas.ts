@@ -21,6 +21,8 @@ export const guestSchema = z.object({
     .default('Not Responded'),
   spiritAnimal: z.string().optional(),
   foodPref: z.string().optional(),
+  rowNumber: z.number().min(1),
+  address: z.string().nullable().default(null),
 })
 
 export const partySchema = z.object({
@@ -34,6 +36,19 @@ export const partySchema = z.object({
 export const partyResponseSchema = z.object({
   ok: z.literal(true),
   data: partySchema,
+})
+
+/** Party shape from /info/guests/by-party */
+export const byPartySchema = z.object({
+  partyName: z.string(),
+  partyId: z.string().default('unknown'),
+  guests: z.array(guestSchema),
+})
+
+/** GET /info/guests/by-party response */
+export const guestsByPartyResponseSchema = z.object({
+  ok: z.literal(true),
+  data: z.array(byPartySchema),
 })
 
 export const searchGuestByNameRequestSchema = z.object({
@@ -61,6 +76,7 @@ export const submitRsvpRequestSchema = z.object({
 
 export type Guest = z.infer<typeof guestSchema>
 export type Party = z.infer<typeof partySchema>
+export type ByParty = z.infer<typeof byPartySchema>
 
 export type SearchGuestByNameRequest = z.infer<
   typeof searchGuestByNameRequestSchema

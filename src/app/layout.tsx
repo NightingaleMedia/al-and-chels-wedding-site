@@ -15,6 +15,11 @@ const monotype = localFont({
   display: 'swap',
 })
 
+const script = localFont({
+  src: '../fonts/Amalfi Coast.ttf',
+  variable: '--font-script',
+  display: 'swap',
+})
 // Heading font - Bold, uppercase style
 const archivoBlack = Archivo_Black({
   variable: '--font-archivo-black',
@@ -59,7 +64,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${monotype.variable} ${archivoBlack.variable} ${body1.variable} ${secondary.variable} ${caption.variable}`}
+      className={`${monotype.variable} ${archivoBlack.variable} ${body1.variable} ${secondary.variable} ${caption.variable} ${script.variable}`}
     >
       <AppRouterCacheProvider>
         <ThemeRegistry>

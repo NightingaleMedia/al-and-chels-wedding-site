@@ -3,6 +3,7 @@ import { grey } from '@mui/material/colors'
 
 const ORANGE = '#f69d0f'
 const BROWN = '#4e2d11'
+const RED = '#ff1601'
 const theme = createTheme({
   breakpoints: {
     values: {
@@ -29,6 +30,14 @@ const theme = createTheme({
       default: 'var(--background)',
       // default: '#F8F1D6',
       paper: '#fffaf1',
+    },
+    success: {
+      main: '#41b791',
+      contrastText: '#ffffff',
+    },
+    warning: {
+      main: ORANGE,
+      contrastText: '#ffffff',
     },
   },
   components: {
@@ -58,6 +67,11 @@ const theme = createTheme({
         root: {
           minHeight: '55px',
         },
+      },
+    },
+    MuiTypography: {
+      defaultProps: {
+        variantMapping: { special: 'h6' },
       },
     },
 
@@ -155,6 +169,12 @@ const theme = createTheme({
       fontFamily: 'var(--font-secondary)',
       fontSize: '0.75rem',
       lineHeight: 1.4,
+    },
+    special: {
+      fontSize: 'clamp(2rem, 8vw, 3rem)', // Responsive: 32px mobile → 48px desktop
+      fontWeight: 800,
+      fontFamily: 'var(--font-script)',
+      color: RED,
     },
   },
 })

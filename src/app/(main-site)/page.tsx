@@ -55,16 +55,24 @@ export default function Home() {
 
   return (
     <Box className="p-4">
-      <Box className="flex flex-col gap-4 overflow-hidden">
+      <Box className="flex flex-col gap-4 ">
         <Typography
-          variant="h1"
+          variant="special"
           align="center"
-          sx={{ fontSize: '8rem' }}
-          className="hidden lg:block"
+          // sx={{ fontSize: '8rem' }}
+          className="lg:block"
         >
-          Getting Married
+          getting
         </Typography>
         <Box className="h-[290px] mx-auto overflow-hidden">{photos[count]}</Box>
+        <Typography
+          variant="special"
+          align="center"
+          // sx={{ fontSize: '8rem' }}
+          className="lg:block"
+        >
+          &quot;married&quot;
+        </Typography>
       </Box>
       <NavLinkList />
     </Box>
