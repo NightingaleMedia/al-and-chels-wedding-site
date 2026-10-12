@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { NavLinkData } from '@/content/navLinks'
 import { Typography } from '@mui/material'
