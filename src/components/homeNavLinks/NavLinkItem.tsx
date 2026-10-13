@@ -7,7 +7,7 @@ import { grey } from '@mui/material/colors'
 
 export function NavLinkItem({ href, label, emoji, children }: NavLinkData) {
   return (
-    <li>
+    <li style={{ listStyleType: 'none' }}>
       <Link
         href={href}
         style={{ textDecoration: 'none' }}
