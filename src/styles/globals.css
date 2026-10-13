@@ -46,14 +46,8 @@
   /* Typography styles are now managed by MUI theme.ts */
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 html {
+  color-scheme: light;
   padding: 0;
   margin: 0;
   font-size: 16px;

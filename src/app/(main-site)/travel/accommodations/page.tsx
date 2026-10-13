@@ -2,6 +2,8 @@ import OutlineCard from '@/components/OutlineCard'
 import { pageEnabledOrComingSoon } from '@/utils/getComingSoonPage'
 import { Box, Divider, Typography } from '@mui/material'
 import PhoneIcon from '@mui/icons-material/Phone'
+import { Public, Web } from '@mui/icons-material'
+import { NavLinkItem } from '@/components/homeNavLinks/NavLinkItem'
 
 // @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
 // Remove this opt-out after verifying the segment passes validation without it.
@@ -70,38 +72,40 @@ export default async function AccomodationsPage() {
           </div>
           <div>
             <Typography variant="body2">
-              Thanks Renaissance Toledo, we are able to offer special room block
-              pricing for guests.
+              Thanks to Renaissance Toledo, we are able to offer special room
+              block pricing for guests.
             </Typography>
             <br />
             <Typography variant="body2">
               <strong>
-                * All reservations must be received by Wednesday, April 28, 2027
-                *
+                *All reservations must be received by Wednesday, April 28, 2027*
               </strong>
             </Typography>
 
             <br />
             <Typography variant="body2">
-              Reservations for the Event will be made by individual attendees
-              directly with Marriott reservations at:
+              Reservations will be made by individual attendees:
             </Typography>
             <br />
-            <Typography
-              variant="body2"
-              className="flex items-center gap-1 mt-1"
-            >
-              <PhoneIcon fontSize="small" />
-              <strong>
-                <a href="tel:4192442444">(419) 244-2444</a>
-              </strong>
-            </Typography>
-            <Typography variant="body2" sx={{ fontSize: '0.7rem', mt: 2 }}>
-              Mention the &quot;Sigman Wedding Room Block&quot; when making your
-              reservation
+            <NavLinkItem
+              href="https://app.marriott.com/resview2?id=1791486054758&key=GRP&app=resvlink"
+              emoji="🧑🏾‍💻"
+              label="reserve online"
+            />
+            <div style={{ height: '1rem' }}></div>
+            <NavLinkItem
+              href="tel:4192442444"
+              emoji="📞"
+              label="call to reserve (419) 244-2444"
+            />
+
+            <Typography variant="body2" sx={{ fontSize: '0.7rem', mt: 1 }}>
+              *Mention the &quot;Sigman Wedding Room Block&quot; when making
+              your reservation
             </Typography>
           </div>
         </div>
+        <Divider sx={{ mt: 8 }} />
         <div className="mt-20">
           <div className="flex flex-col lg:flex-row gap-8">
             <div className="min-w-[360px]">
@@ -123,34 +127,35 @@ export default async function AccomodationsPage() {
             </div>
             <div>
               <Typography variant="body2">
-                The lovely Hilton Garden Inn is just a block away from the
-                Renaissance. They have graciously gifted us a special room block
-                for our guests.
+                The Hilton Garden Inn is just a block away from the Renaissance.
+                They have graciously offered us a room block for our guests.
               </Typography>
               <br />
               <Typography variant="body2">
                 <strong>
-                  * All reservations must be received by Wednesday, April 28,
-                  2027 *
+                  *All reservations must be received by Wednesday, April 28,
+                  2027*
                 </strong>
               </Typography>
               <br />
 
               <Typography variant="body2">
-                Reservations for the Event will be made by individual attendees
-                directly with Hilton Garden Inn reservations at:
+                Reservations will be made by individual attendees:
               </Typography>
               <br />
-              <Typography
-                variant="body2"
-                className="flex items-center gap-1 mt-1"
-              >
-                <PhoneIcon fontSize="small" />
-                <strong>
-                  <a href="tel:5679703051">567-970-3051</a>
-                </strong>
-              </Typography>
-              <Typography variant="body2" sx={{ fontSize: '0.7rem', mt: 2 }}>
+              <NavLinkItem
+                href="https://www.hilton.com/en/attend-my-event/toldegi-92i-fc170209-b153-42c5-809e-d21a65250be5/"
+                emoji="🧑🏾‍💻"
+                label="reserve online"
+              />
+
+              <div style={{ height: '1rem' }}></div>
+              <NavLinkItem
+                href="tel:5679703051"
+                emoji="📞"
+                label="call to reserve (567) 970-3051"
+              />
+              <Typography variant="body2" sx={{ fontSize: '0.7rem', mt: 1 }}>
                 Mention the &quot;Burgin Sigman Wedding Room Block&quot; when
                 placing your reservation.
               </Typography>

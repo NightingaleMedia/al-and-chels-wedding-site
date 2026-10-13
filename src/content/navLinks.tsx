@@ -68,3 +68,10 @@ export const menuNavLinks: NavLink[] = [
   },
   { label: 'FAQs', href: '/faqs' },
 ]
+
+export const adminLinks: NavLink[] = [
+  { label: 'Wedding Home', href: '/' },
+  { label: 'Admin Home', href: '/admin' },
+  { label: 'Party', href: '/admin/party' },
+  { label: 'Photo Approval', href: '/admin/pending-photos' },
+]

@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link'
 import { NavLinkData } from '@/content/navLinks'
 import { Typography } from '@mui/material'
@@ -6,7 +7,7 @@ import { grey } from '@mui/material/colors'
 
 export function NavLinkItem({ href, label, emoji, children }: NavLinkData) {
   return (
-    <li>
+    <li style={{ listStyleType: 'none' }}>
       <Link
         href={href}
         style={{ textDecoration: 'none' }}

@@ -1,17 +1,11 @@
 'use client'
 
-import { PolarArea } from 'react-chartjs-2'
-import {
-  Chart as ChartJS,
-  RadialLinearScale,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from 'chart.js'
+import { Doughnut } from 'react-chartjs-2'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 import { Typography } from '@mui/material'
 import { ByParty } from '@/serverActions/rsvp/weddingBackend.schemas'
 
-ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend)
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 interface RsvpStatusPolarProps {
   parties: ByParty[]
@@ -21,11 +15,19 @@ export default function RsvpStatusPolar({ parties }: RsvpStatusPolarProps) {
   const allGuests = parties.flatMap((p) => p.guests)
 
   const attending = allGuests.filter((g) => g.rsvp === 'Attending').length
-  const notAttending = allGuests.filter((g) => g.rsvp === 'Not Attending').length
-  const notResponded = allGuests.filter((g) => g.rsvp === 'Not Responded').length
+  const notAttending = allGuests.filter(
+    (g) => g.rsvp === 'Not Attending',
+  ).length
+  const notResponded = allGuests.filter(
+    (g) => g.rsvp === 'Not Responded',
+  ).length
 
   const data = {
-    labels: ['Attending 🎉', 'Declined 😢', 'Waiting 🤞'],
+    labels: [
+      `Attending 🎉 (${attending})`,
+      `Declined 😢 (${notAttending})`,
+      `Waiting 🤞 (${notResponded})`,
+    ],
     datasets: [
       {
         data: [attending, notAttending, notResponded],
@@ -35,24 +37,18 @@ export default function RsvpStatusPolar({ parties }: RsvpStatusPolarProps) {
           'rgba(234, 179, 8, 0.7)',
         ],
         borderColor: ['#16a34a', '#dc2626', '#ca8a04'],
-        borderWidth: 2,
+        borderWidth: 0,
       },
     ],
   }
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     plugins: {
       legend: {
         position: 'bottom' as const,
         labels: { usePointStyle: true },
-      },
-    },
-    scales: {
-      r: {
-        ticks: { display: false },
-        grid: { color: 'rgba(0,0,0,0.1)' },
       },
     },
   }
@@ -61,7 +57,7 @@ export default function RsvpStatusPolar({ parties }: RsvpStatusPolarProps) {
     <div className="flex flex-col items-center gap-2">
       <Typography variant="subtitle2">RSVP Breakdown</Typography>
       <div className="h-56 w-56">
-        <PolarArea data={data} options={options} />
+        <Doughnut data={data} options={options} />
       </div>
     </div>
   )

@@ -1,72 +1,55 @@
-'use client';
+'use client'
 
 /**
  * Admin moderation interface for pending photo uploads
  */
 
-import React, { useState, useEffect } from 'react';
-import {
-  Container,
-  Typography,
-  Box,
-  CircularProgress,
-} from '@mui/material';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import PinAuth from '@/components/admin/PinAuth';
-import PendingMediaCard from '@/components/admin/PendingMediaCard';
-import { listPendingPhotos } from '@/serverActions/photos/listPendingPhotos';
-import { MediaItem } from '@/types/media';
+import React, { useState, useEffect } from 'react'
+import { Container, Typography, Box, CircularProgress } from '@mui/material'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import PendingMediaCard from '@/components/admin/PendingMediaCard'
+import { listPendingPhotos } from '@/serverActions/photos/listPendingPhotos'
+import { MediaItem } from '@/types/media'
 
 export default function PendingPhotosPage() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [pendingItems, setPendingItems] = useState<MediaItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [pendingItems, setPendingItems] = useState<MediaItem[]>([])
+  const [loading, setLoading] = useState(true)
 
   // Fetch pending items after authentication
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchPendingItems();
-    }
-  }, [isAuthenticated]);
+    fetchPendingItems()
+  }, [])
 
   async function fetchPendingItems() {
-    setLoading(true);
+    setLoading(true)
     try {
-      const items = await listPendingPhotos();
-      setPendingItems(items);
+      const items = await listPendingPhotos()
+      setPendingItems(items)
     } catch (error) {
-      console.error('Error fetching pending items:', error);
+      console.error('Error fetching pending items:', error)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
   }
 
   function handleItemModerated(publicId: string) {
     // Remove item from list
-    setPendingItems((prev) => prev.filter((item) => item.publicId !== publicId));
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <>
-        <ToastContainer />
-        <PinAuth onAuthenticated={() => setIsAuthenticated(true)} />
-      </>
-    );
+    setPendingItems((prev) => prev.filter((item) => item.publicId !== publicId))
   }
 
   return (
     <>
       <ToastContainer />
-      
+
       <Container maxWidth="lg" sx={{ py: 4 }}>
         <Box sx={{ mb: 4 }}>
           <Typography variant="h3" component="h1" gutterBottom>
             Pending Photos & Videos ({pendingItems.length})
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            Review and approve or reject uploaded content before it appears in the public gallery.
+            Review and approve or reject uploaded content before it appears in
+            the public gallery.
           </Typography>
         </Box>
 
@@ -107,5 +90,5 @@ export default function PendingPhotosPage() {
         )}
       </Container>
     </>
-  );
+  )
 }

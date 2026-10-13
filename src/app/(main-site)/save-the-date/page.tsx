@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Image from 'next/image'
 import type { Metadata } from 'next'
 import CalendarButton from '@/components/CalendarButton'
@@ -25,6 +25,24 @@ const WIDTH = 430
 export default function SaveTheDatePage() {
   return (
     <div className="w-screen flex flex-col items-center py-8 px-4">
+      <Box sx={{ overflow: 'hidden' }}>
+        <Typography
+          variant="h1"
+          align="center"
+          sx={{ textTransform: 'lowercase' }}
+          className="lg:block"
+        >
+          we are getting
+        </Typography>
+        <Typography
+          variant="special"
+          align="center"
+          sx={{ fontSize: '4rem', mt: '-40px' }}
+          className="lg:block"
+        >
+          married
+        </Typography>
+      </Box>
       <div
         className={`grid lg:grid-cols-[calc(${WIDTH}px_*_0.16)_calc(${WIDTH}px_*_0.84)] relative grid-cols-[9fr_50fr] max-w-[430px] w-full overflow-hidden`}
       >
