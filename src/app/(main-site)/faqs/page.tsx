@@ -1,10 +1,22 @@
-import { ComingSoonPage } from '@/components/pageComponents/ComingSoonPageComponents'
-
-// @next-codemod-ignore Cache Components adoption: this segment temporarily allows blocking.
-// Remove this opt-out after verifying the segment passes validation without it.
-// See: https://nextjs.org/docs/app/guides/migrating-to-cache-components
-export const instant = false;
+import { Box, Typography } from '@mui/material'
+import { FAQItem } from '@/components/FAQItem'
+import { faqData } from '@/content/faq'
 
 export default function FaqsPage() {
-  return <ComingSoonPage />
+  return (
+    <Box className="pt-8 px-4" sx={{ maxWidth: '600px', mx: 'auto' }}>
+      <Typography
+        variant="special"
+        component="h1"
+        className="text-center"
+        sx={{ mb: 4 }}
+      >
+        faqs
+      </Typography>
+
+      {faqData.map((item, index) => (
+        <FAQItem key={index} item={item} />
+      ))}
+    </Box>
+  )
 }
