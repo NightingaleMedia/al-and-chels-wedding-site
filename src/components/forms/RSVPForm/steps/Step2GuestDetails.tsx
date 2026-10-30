@@ -22,7 +22,6 @@ export default function Step2GuestDetails() {
 
   return (
     <section className="flex flex-col gap-6">
-      <Divider />
       {attendingMembers.map((member) => {
         const field = `guestDetails.${member.uuid}.dietaryPreference`
         const value = formik.values.guestDetails[member.uuid].dietaryPreference
@@ -38,12 +37,12 @@ export default function Step2GuestDetails() {
               <div className="flex flex-col gap-2">
                 <div>
                   <FormLabel className="font-bold text-bold">
-                    dietary preference
+                    dietary preference:
                   </FormLabel>{' '}
                 </div>
 
                 <RadioGroup
-                  className="my-0 py-0"
+                  className="mt-2 ml-4 py-0"
                   value={isPreset ? value : CUSTOM}
                   onChange={(event) =>
                     formik.setFieldValue(
@@ -56,7 +55,7 @@ export default function Step2GuestDetails() {
                     <FormControlLabel
                       key={preset}
                       value={preset}
-                      control={<Radio />}
+                      control={<Radio sx={{ p: '5px' }} />}
                       label={preset}
                       slotProps={{
                         typography: {
@@ -69,8 +68,22 @@ export default function Step2GuestDetails() {
                   ))}
                   <FormControlLabel
                     value={CUSTOM}
-                    control={<Radio />}
-                    label="something else"
+                    control={<Radio sx={{ p: '5px' }} />}
+                    label={
+                      <Typography sx={{ mt: 1, fontSize: '14px' }}>
+                        something else{' '}
+                        <Typography
+                          sx={{
+                            fontStyle: 'italic',
+                            display: 'block',
+                            fontSize: '12px',
+                          }}
+                          component={'span'}
+                        >
+                          (select to type)
+                        </Typography>
+                      </Typography>
+                    }
                   />
                 </RadioGroup>
               </div>
@@ -85,7 +98,13 @@ export default function Step2GuestDetails() {
                 fullWidth
               />
             )}
-            <div className="flex flex-col gap-2">
+            <div>
+              <FormLabel className="font-bold text-bold">
+                extra (optional) questions:
+              </FormLabel>
+            </div>
+
+            <div className="flex flex-col gap-2 mt-0 ml-4 pr-8">
               <TextField
                 name={`guestDetails.${member.uuid}.spiritAnimal`}
                 value={formik.values.guestDetails[member.uuid].spiritAnimal}
@@ -93,7 +112,7 @@ export default function Step2GuestDetails() {
                 fullWidth
                 label="spirit animal 🦉"
                 variant="filled"
-                helperText="optional"
+                helperText="eg: owl, panda, slow loris"
               />
             </div>
             <Divider />
